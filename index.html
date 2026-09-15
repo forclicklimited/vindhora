@@ -1,0 +1,2461 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VINDHORA — allt du redan har</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#121212; --ink-2:#4a4a4a; --ink-3:#8a8a8a;
+  --bg:#ffffff; --bg-2:#fbfaf9; --shot:#f7f6f4;
+  --line:#ececea; --line-2:#dddbd8;
+  --brass:#9c6b3e; --flag:#b2422f; --ok:#2f6b46;
+  --r:16px; --r-s:10px;
+  --font:'Work Sans',ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --max:1440px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;font-size:inherit;color:inherit;border:0;background:none;cursor:pointer}
+input,select{font-family:inherit;font-size:inherit;color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+.eyebrow{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--ink-3)}
+
+.topline{background:var(--ink);color:#fff;text-align:center;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;padding:10px 20px;font-weight:500}
+.topline b{color:#e9c49a;font-weight:600}
+
+header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.96);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--line)}
+.head{display:flex;align-items:center;gap:26px;padding:18px 28px;max-width:var(--max);margin:0 auto}
+.logo{display:flex;flex-direction:column;line-height:1;flex:0 0 auto;cursor:pointer}
+.logo .mark{font-size:25px;font-weight:700;letter-spacing:.30em;text-transform:uppercase}
+.logo .sub{font-size:8px;letter-spacing:.32em;text-transform:uppercase;color:var(--brass);margin-top:6px;font-weight:600}
+.search{flex:1;position:relative;max-width:620px}
+.search input{width:100%;padding:13px 40px 13px 42px;border:1px solid var(--line-2);border-radius:999px;background:var(--bg-2);outline:none;transition:.16s}
+.search input:focus{border-color:var(--ink);background:#fff;box-shadow:0 0 0 3px rgba(18,18,18,.05)}
+.search .ico{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--ink-3);pointer-events:none;font-size:15px}
+.search .clr{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:17px;display:none}
+.headacts{display:flex;align-items:center;gap:6px;margin-left:auto;flex:0 0 auto}
+.hbtn{display:flex;align-items:center;gap:8px;padding:11px 16px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.03em;white-space:nowrap;transition:.15s}
+.hbtn:hover{background:var(--bg-2)}
+.hbtn.solid{background:var(--ink);color:#fff}
+.hbtn.solid:hover{background:#333}
+.badge{background:#fff;color:var(--ink);border-radius:999px;min-width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;padding:0 6px}
+.hbtn:not(.solid) .badge{background:var(--ink);color:#fff}
+
+/* ---- nivå 1: grupper ---- */
+nav.groups{border-bottom:1px solid var(--line);background:#fff}
+.grouprow{display:flex;gap:34px;padding:0 28px;max-width:var(--max);margin:0 auto;overflow-x:auto;scrollbar-width:none}
+.grouprow::-webkit-scrollbar{display:none}
+.grouprow button{padding:16px 0 14px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);border-bottom:2px solid transparent;white-space:nowrap;transition:.15s}
+.grouprow button:hover{color:var(--ink)}
+.grouprow button.on{color:var(--ink);border-bottom-color:var(--ink)}
+.grouprow button .n{color:var(--ink-3);font-weight:500;margin-left:6px;font-size:11px}
+
+/* ---- nivå 2: underkategorier ---- */
+.subbar{background:var(--bg-2);border-bottom:1px solid var(--line);display:none}
+.subbar.on{display:block}
+.subrow{display:flex;gap:8px;padding:14px 28px;max-width:var(--max);margin:0 auto;flex-wrap:wrap}
+.subcat{border:1px solid var(--line-2);background:#fff;border-radius:999px;padding:8px 15px;font-size:12.5px;font-weight:500;transition:.15s;white-space:nowrap}
+.subcat:hover{border-color:var(--ink)}
+.subcat.on{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:600}
+.subcat .n{opacity:.5;margin-left:6px;font-size:11px}
+
+/* ---- filterrad ---- */
+.tools{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:22px 0 18px}
+.chip{border:1px solid var(--line-2);border-radius:999px;padding:9px 15px;font-size:12.5px;font-weight:500;display:inline-flex;align-items:center;gap:8px;transition:.15s;background:#fff}
+.chip:hover{border-color:var(--ink)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:600}
+.chip.flagchip.on{background:var(--flag);border-color:var(--flag)}
+.count{margin-left:auto;color:var(--ink-2);font-size:12.5px;font-weight:500}
+select.sort{border:1px solid var(--line-2);border-radius:999px;padding:9px 14px;background:#fff;font-size:12.5px;font-weight:500;cursor:pointer}
+.brandrail{display:flex;gap:8px;overflow-x:auto;padding:4px 0 2px;scrollbar-width:none}
+.brandrail::-webkit-scrollbar{display:none}
+.bchip{border:1px solid var(--line-2);background:#fff;border-radius:999px;padding:8px 14px;font-size:12px;font-weight:600;letter-spacing:.02em;white-space:nowrap;display:flex;align-items:center;gap:8px;transition:.15s}
+.bchip:hover{border-color:var(--ink)}
+.bchip .dot{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
+.bchip .n{color:var(--ink-3);font-weight:500}
+.bchip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.bchip.on .n{color:rgba(255,255,255,.6)}
+
+/* ---- rutnät ---- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:18px;margin:8px 0 56px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;position:relative;display:flex;flex-direction:column;cursor:pointer;transition:.18s ease}
+.card:hover{border-color:var(--line-2);box-shadow:0 12px 34px rgba(18,18,18,.09);transform:translateY(-2px)}
+.shot{aspect-ratio:1/1;background:var(--shot);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.shot img{width:100%;height:100%;object-fit:contain;padding:14px;display:block}
+.shot.photo img{object-fit:cover;padding:0}
+.fallback{position:absolute;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;gap:6px;text-align:center;padding:16px}
+.shot.nopic .fallback{display:flex}
+.shot.nopic img{display:none}
+.fallback .initial{font-size:38px;font-weight:700;letter-spacing:.04em}
+.fallback .fb{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.tags{position:absolute;top:11px;left:11px;display:flex;flex-direction:column;gap:6px;align-items:flex-start;z-index:2}
+.tag{font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:5px 8px;border-radius:999px;background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.tag.flag{background:var(--flag);color:#fff}
+.tag.multi{background:var(--ink);color:#fff}
+.tag.own{background:#fff;color:var(--brass)}
+.stockpill{position:absolute;top:11px;right:11px;background:#fff;color:var(--ink);font-size:10.5px;font-weight:700;letter-spacing:.03em;padding:5px 10px;border-radius:999px;z-index:2;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.stockpill.out{background:var(--ink);color:#fff}
+.cbody{padding:16px 16px 0;display:flex;flex-direction:column;gap:5px;flex:1}
+.cbrand{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.ctitle{font-size:13px;color:var(--ink-2);line-height:1.42;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cmeta{font-size:11.5px;color:var(--ink-3)}
+.stars{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink);font-weight:600;margin-top:3px}
+.stars .s{color:var(--ink);letter-spacing:1px;font-size:11px}
+.stars .soft{color:var(--ink-3);font-weight:400;font-size:11.5px}
+.cfoot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px 16px;margin-top:auto}
+.price{font-size:15px;font-weight:600}
+.price small{font-weight:400;color:var(--ink-3);font-size:10px;display:block;letter-spacing:.06em;text-transform:uppercase;margin-top:1px}
+.add{border:1px solid var(--ink);border-radius:999px;padding:10px 15px;font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;transition:.15s;white-space:nowrap}
+.add:hover{background:var(--ink);color:#fff}
+.add:disabled{border-color:var(--line-2);color:var(--ink-3);cursor:not-allowed;background:#fff}
+.accent{height:3px;width:100%}
+
+.empty{border:1px dashed var(--line-2);border-radius:var(--r);padding:70px 30px;text-align:center;margin:8px 0 60px;background:var(--bg-2)}
+.empty h3{margin:0 0 10px;font-weight:400;font-size:20px}
+.empty p{margin:0 auto;color:var(--ink-2);max-width:48ch}
+
+/* ---- lagerstatus (botten) ---- */
+.statusband{border-top:1px solid var(--line);background:var(--bg-2);margin-top:20px}
+.statusband .wrap{padding:36px 28px}
+.statusband h2{margin:8px 0 6px;font-size:24px;font-weight:300}
+.statusband h2 b{font-weight:600}
+.statusband p{margin:0;color:var(--ink-2);max-width:58ch}
+.stats{display:flex;gap:44px;margin-top:24px;flex-wrap:wrap}
+.stat .v{font-size:28px;font-weight:600;line-height:1.1}
+.stat .l{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-top:4px}
+
+/* ---- modal ---- */
+.veil{position:fixed;inset:0;background:rgba(18,18,18,.42);z-index:90;opacity:0;pointer-events:none;transition:.2s}
+.veil.on{opacity:1;pointer-events:auto}
+.modal{position:fixed;z-index:100;inset:0;display:flex;align-items:center;justify-content:center;padding:26px;pointer-events:none}
+.modal .box{background:#fff;border-radius:var(--r);max-width:980px;width:100%;max-height:88vh;overflow:auto;transform:translateY(14px);opacity:0;transition:.2s;pointer-events:none}
+.modal.on .box{transform:none;opacity:1;pointer-events:auto}
+.pdp{display:grid;grid-template-columns:1fr 1fr}
+.pdp .left{background:var(--shot);position:relative;min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r) 0 0 var(--r)}
+.pdp .left .big{width:100%;flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.pdp .left .big img{max-width:100%;max-height:420px;object-fit:contain;padding:26px}
+.pdp .left .big img.cover{width:100%;height:100%;max-height:none;object-fit:cover;padding:0}
+.thumbs{display:flex;gap:8px;padding:0 0 18px}
+.thumbs button{width:64px;border-radius:var(--r-s);border:1.5px solid transparent;background:#fff;overflow:hidden;padding:0;display:flex;flex-direction:column;align-items:center}
+.thumbs button img{height:56px;border-radius:var(--r-s) var(--r-s) 0 0}
+.thumbs button span{font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--ink-3);padding:4px 0 3px;display:block}
+.thumbs button.on span{color:var(--ink)}
+.thumbs button.on{border-color:var(--ink)}
+.thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+.closeb{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;z-index:3;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.pdp .right{padding:32px 34px 36px;display:flex;flex-direction:column;gap:14px}
+.pdp h2{margin:0;font-size:22px;font-weight:400;line-height:1.32}
+.brandline{font-size:12px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:8px 20px;font-size:13px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0}
+.kv dt{color:var(--ink-3);font-weight:500}
+.kv dd{margin:0;font-weight:500}
+.warn{background:#fdf3f1;border-radius:var(--r-s);border-left:3px solid var(--flag);padding:13px 15px;font-size:12.5px;color:#7a2f22}
+.warn.soft{background:#f8f4ee;border-left-color:var(--brass);color:#6b4f2e}
+.qtyrow{display:flex;align-items:center;gap:12px}
+.qty{display:flex;align-items:center;border:1px solid var(--line-2);border-radius:999px;overflow:hidden}
+.qty button{width:38px;height:44px;font-size:16px}
+.qty span{width:38px;text-align:center;font-weight:600}
+.buy{flex:1;background:var(--ink);color:#fff;border-radius:999px;padding:15px;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.buy:hover{background:#333}
+.buy:disabled{background:var(--line-2);color:var(--ink-3);cursor:not-allowed}
+.srcnote{font-size:11.5px;color:var(--ink-3)}
+.linkish{text-decoration:underline;cursor:pointer}
+
+/* ---- drawer ---- */
+.drawer{position:fixed;top:0;right:0;bottom:0;width:440px;max-width:100%;background:#fff;z-index:110;transform:translateX(100%);transition:.24s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-10px 0 44px rgba(18,18,18,.13)}
+.drawer.on{transform:none}
+.dhead{padding:22px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
+.dhead h3{margin:0;font-size:12.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+.dhead button{margin-left:auto;font-size:21px;color:var(--ink-3)}
+.dbody{flex:1;overflow:auto;padding:4px 24px}
+.line{display:flex;gap:14px;padding:18px 0;border-bottom:1px solid var(--line)}
+.line .th{width:70px;height:70px;border-radius:var(--r-s);background:var(--shot);flex:0 0 auto;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.line .th img{width:100%;height:100%;object-fit:contain;padding:6px}
+.line .info{flex:1;display:flex;flex-direction:column;gap:3px;min-width:0}
+.line .info .b{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.line .info .t{font-size:12.5px;color:var(--ink-2);line-height:1.35}
+.line .info .p{font-size:13px;font-weight:600;margin-top:2px}
+.line .rm{font-size:11px;color:var(--ink-3);text-decoration:underline;align-self:flex-start}
+.dfoot{border-top:1px solid var(--line);padding:22px 24px;background:var(--bg-2)}
+.sumrow{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px}
+.sumrow.total{font-size:16px;font-weight:600;padding-top:12px;border-top:1px solid var(--line-2);margin-top:12px}
+.checkout{width:100%;background:var(--ink);color:#fff;border-radius:999px;padding:16px;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-top:14px}
+.checkout:disabled{background:var(--line-2);color:var(--ink-3);cursor:not-allowed}
+.savedline{text-align:center;font-size:11.5px;color:var(--ok);margin-top:12px;font-weight:600}
+
+/* ---- vyer ---- */
+.view{display:none}
+.view.on{display:block}
+.pagehead{padding:36px 0 22px;border-bottom:1px solid var(--line)}
+.pagehead h2{margin:8px 0 0;font-size:26px;font-weight:300}
+.backb{font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.order{border:1px solid var(--line);border-radius:var(--r);margin:22px 0;background:#fff;overflow:hidden}
+.ohead{padding:18px 22px;background:var(--bg-2);border-bottom:1px solid var(--line);display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.ohead .oid{font-size:12px;font-weight:700;letter-spacing:.1em}
+.ohead .odate{font-size:12px;color:var(--ink-3)}
+.ohead .oacts{margin-left:auto;display:flex;gap:8px}
+.mini{border:1px solid var(--line-2);border-radius:999px;padding:8px 14px;font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;background:#fff}
+.mini:hover{border-color:var(--ink)}
+.pick{padding:8px 22px 18px}
+.pickrow{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}
+.pickrow:last-child{border-bottom:0}
+.pickrow .box{width:21px;height:21px;border:1.5px solid var(--ink);border-radius:6px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer}
+.pickrow.done .box{background:var(--ok);border-color:var(--ok);color:#fff}
+.pickrow.done .pt{text-decoration:line-through;color:var(--ink-3)}
+.pickrow .pt{flex:1;font-size:13px}
+.pickrow .pt b{font-weight:600}
+.pickrow .loc{font-size:11.5px;color:var(--brass);font-weight:600}
+.pickrow .n{font-size:12px;font-weight:700;background:var(--bg-2);border-radius:999px;padding:4px 11px}
+.confirm{text-align:center;padding:70px 20px}
+.confirm .tick{width:58px;height:58px;border-radius:50%;background:var(--ok);color:#fff;display:flex;align-items:center;justify-content:center;font-size:27px;margin:0 auto 20px}
+.confirm h2{margin:0 0 8px;font-weight:300;font-size:26px}
+.confirm p{color:var(--ink-2);margin:0 0 24px}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:var(--ink);color:#fff;border-radius:999px;padding:14px 22px;font-size:12.5px;font-weight:500;z-index:200;opacity:0;pointer-events:none;transition:.2s}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+footer{border-top:1px solid var(--line);padding:30px 0 60px;color:var(--ink-3);font-size:11.5px}
+.footrow{display:flex;gap:22px;flex-wrap:wrap;align-items:center}
+.footrow .sep{margin-left:auto}
+
+@media(max-width:900px){
+  .wrap{padding:0 16px}
+  .pdp{grid-template-columns:1fr}
+  .pdp .left{border-radius:var(--r) var(--r) 0 0;min-height:300px}
+  .head{flex-wrap:wrap;gap:14px;padding:14px 16px}
+  .search{order:3;flex-basis:100%;max-width:none}
+  .grouprow,.subrow{padding-left:16px;padding-right:16px}
+  .grouprow{gap:22px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px}
+  .modal{padding:0}
+  .modal .box{max-height:100vh;height:100vh;border-radius:0}
+  .statusband .wrap{padding:28px 16px}
+  .stats{gap:26px}
+}
+</style>
+</head>
+<body>
+
+<div class="topline">Din vind, som butik · <b>Handla här innan du handlar någon annanstans</b></div>
+
+<header>
+  <div class="head">
+    <div class="logo" data-go="shop">
+      <div class="mark">Vindhora</div>
+      <div class="sub">Loftets varuhus</div>
+    </div>
+    <div class="search">
+      <span class="ico">⌕</span>
+      <input id="q" type="search" placeholder="Sök på vinden — märke, produkt, kategori…" autocomplete="off">
+      <button class="clr" id="qclr" data-act="clearq">×</button>
+    </div>
+    <div class="headacts">
+      <button class="hbtn" data-go="orders">Mina uttag <span class="badge" id="ordb" style="display:none">0</span></button>
+      <button class="hbtn solid" data-act="cart">Korg <span class="badge" id="cartb">0</span></button>
+    </div>
+  </div>
+  <nav class="groups"><div class="grouprow" id="grouprow"></div></nav>
+  <div class="subbar" id="subbar"><div class="subrow" id="subrow"></div></div>
+</header>
+
+<section class="view on" id="v-shop">
+  <div class="wrap">
+    <div class="tools">
+      <button class="chip" data-f="multi">Flera exemplar</button>
+      <button class="chip flagchip" data-f="osaker">⚑ Osäker match</button>
+      <button class="chip" data-f="slut">Dölj slut</button>
+      <button class="chip" data-act="reset" style="border-style:dashed">Rensa allt</button>
+      <span class="count" id="count">0 produkter</span>
+      <select class="sort" id="sort">
+        <option value="ny">Senast inlagt</option>
+        <option value="az">Märke A–Ö</option>
+        <option value="prisner">Pris: högst först</option>
+        <option value="prisupp">Pris: lägst först</option>
+        <option value="antal">Flest kvar</option>
+        <option value="betyg">Högst betyg</option>
+      </select>
+    </div>
+    <div class="brandrail" id="brandrail"></div>
+    <div class="grid" id="grid" style="margin-top:20px"></div>
+    <div class="empty" id="empty" style="display:none">
+      <h3>Inget matchar</h3>
+      <p>Rensa filtren så kommer allt tillbaka.</p>
+    </div>
+  </div>
+
+  <div class="statusband">
+    <div class="wrap">
+      <div class="eyebrow">Lagerstatus · uppdateras när du tar ut något</div>
+      <h2>Det du <b>redan äger</b>.</h2>
+      <p>Allt som står på vinden, katalogiserat och sökbart. Hittar du det här — köp det inte igen.</p>
+      <div class="stats">
+        <div class="stat"><div class="v" id="s-artiklar">0</div><div class="l">Artiklar</div></div>
+        <div class="stat"><div class="v" id="s-enheter">0</div><div class="l">Enheter kvar</div></div>
+        <div class="stat"><div class="v" id="s-varde">0 kr</div><div class="l">Värde i hyllan</div></div>
+        <div class="stat"><div class="v" id="s-uttag">0</div><div class="l">Uttagna enheter</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="v-orders">
+  <div class="wrap">
+    <div class="pagehead">
+      <button class="backb" data-go="shop">← Tillbaka till vinden</button>
+      <h2>Mina uttag</h2>
+    </div>
+    <div id="orderlist"></div>
+  </div>
+</section>
+
+<section class="view" id="v-confirm">
+  <div class="wrap"><div class="confirm">
+    <div class="tick">✓</div>
+    <h2>Uttaget är registrerat</h2>
+    <p id="conftext"></p>
+    <button class="mini" data-go="orders" style="padding:14px 24px">Visa plocklistan</button>
+    <button class="mini" data-go="shop" style="padding:14px 24px">Fortsätt handla</button>
+  </div></div>
+</section>
+
+<footer><div class="wrap"><div class="footrow">
+  <span>VINDHORA · privat lagerkatalog · inget här går att beställa på riktigt</span>
+  <span class="sep linkish" data-act="export">Exportera lager (JSON)</span>
+  <span class="linkish" data-act="resetstock">Återställ lagersaldon</span>
+</div></div></footer>
+
+<div class="veil" id="veil" data-act="close"></div>
+<div class="modal" id="modal"><div class="box" id="modalbox"></div></div>
+
+<aside class="drawer" id="drawer">
+  <div class="dhead"><h3>Din korg</h3><button data-act="close">×</button></div>
+  <div class="dbody" id="cartbody"></div>
+  <div class="dfoot" id="cartfoot"></div>
+</aside>
+
+<div class="toast" id="toast"></div>
+
+<script id="vind-data" type="application/json">
+[
+ {
+  "id": "always-night",
+  "varumarke": "Always",
+  "titel": "Always Ultra Secure Night Big Pack, storlek 4, 16 bindor",
+  "kategori": "Mensskydd",
+  "antal": 1,
+  "pris": 62,
+  "storlek": "16 st",
+  "plats": "Rosa väskan",
+  "farg": "#1b2f7a",
+  "bild": "https://lyko.com/globalassets/product-images/always-ultra-secure-night-size-4-pads-with-wings-22-count-1030-368-0022_1.jpg?ref=E10F217287&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/always/alwaysultrasecurenight-size4-pads-with-wings22-count",
+  "betyg": null,
+  "recensioner_antal": null,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Always Ultra Secure Night (Size 4) Pads with wings 22 count. Ligger i rosa väskan.",
+  "grupp": "Hygien"
+ },
+ {
+  "id": "always-2",
+  "varumarke": "Always",
+  "titel": "Always Ultra – natt-design (storlek går ej att läsa på bilden)",
+  "kategori": "Mensskydd",
+  "antal": 1,
+  "pris": 29,
+  "storlek": "",
+  "plats": "Rosa väskan",
+  "farg": "#1b2f7a",
+  "bild": "https://lyko.com/globalassets/product-images/always-ultra-normal-1030-359-0000_1.jpg?ref=2501551CAC&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/always/always-ultra-normal",
+  "betyg": null,
+  "recensioner_antal": null,
+  "butik": "Lyko",
+  "osaker": true,
+  "osakerhet": "Paketet ligger delvis under det svarta – jag ser stjärn- och måndesignen och ordet always, men inte vilken variant eller storlek.",
+  "beskrivning": "Butikens namn på varan: Always Ultra Normal | lyko.com. Ligger i rosa väskan.",
+  "grupp": "Hygien",
+  "foto": "vind/always-2.jpg"
+ },
+ {
+  "id": "topz",
+  "varumarke": "Topz",
+  "titel": "Topz Original Cotton Sticks, 100% ekologisk bomull, 300 st",
+  "kategori": "Hygien",
+  "antal": 1,
+  "pris": 22,
+  "storlek": "300 st",
+  "plats": "Rosa väskan",
+  "farg": "#c9b28a",
+  "bild": "https://lyko.com/globalassets/product-images/topz-premium-cotton-sticks-2867-124-0300_1.jpg?ref=6867F14388&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/topz/topz-premium-cotton-sticks-300pcs",
+  "betyg": 4.7,
+  "recensioner_antal": 2,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Topz Premium Cotton Sticks 300 st. Ligger i rosa väskan.",
+  "grupp": "Hygien"
+ },
+ {
+  "id": "estrid-box",
+  "varumarke": "Estrid",
+  "titel": "Estrid – ljusblå ask (rakhyvel/refillpaket)",
+  "kategori": "Rakning",
+  "antal": 2,
+  "pris": 159,
+  "storlek": "",
+  "plats": "Rosa väskan",
+  "farg": "#9dc3e6",
+  "bild": "https://lyko.com/globalassets/product-images/estrid-the-five-blade-cartridges-3797-132-0000_1.jpg?ref=1F3E96BA3E&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/estrid/estrid-the-five-blade-cartridges2",
+  "betyg": 4.2,
+  "recensioner_antal": 5,
+  "butik": "Lyko",
+  "osaker": true,
+  "osakerhet": "Två ljusblå ESTRID-askar, men lockets text syns inte – kan vara startpaket eller refillblad.",
+  "beskrivning": "Butikens namn på varan: Estrid The Five-blade Cartridges 4 st. Ligger i rosa väskan. Du har 2 exemplar.",
+  "grupp": "Hygien",
+  "foto": "vind/estrid-box.jpg"
+ },
+ {
+  "id": "nivea-micellair",
+  "varumarke": "Nivea",
+  "titel": "NIVEA MicellAIR Micellar Water 3-in-1 Sensitive 100 ml",
+  "kategori": "Ansiktsrengöring",
+  "antal": 1,
+  "pris": 42,
+  "storlek": "100 ml",
+  "plats": "Trådhyllan – hygienkorgen",
+  "farg": "#0a3a8c",
+  "bild": "https://lyko.com/globalassets/product-images/nivea-sensitive-micellar-water-200-ml-1479-286-0200_1.jpg?ref=8D6F4D976B&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/nivea/nivea-sensitive-micellar-water-200ml",
+  "betyg": 4.5,
+  "recensioner_antal": 58,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: NIVEA Cleansing Soothing Micellar Water 200 ml. Ligger i trådhyllan – hygienkorgen.",
+  "grupp": "Ansikte"
+ },
+ {
+  "id": "oralb-6pack",
+  "varumarke": "Oral-B",
+  "titel": "Oral-B borsthuvuden 6-pack (gul Braun-förpackning)",
+  "kategori": "Tandvård",
+  "antal": 1,
+  "pris": 249,
+  "storlek": "",
+  "plats": "Trådhyllan – hygienkorgen",
+  "farg": "#0b4da2",
+  "bild": "https://lyko.com/globalassets/product-images/oral-b-cross-action-5ct-1228-400-0002_1.jpg?ref=6641DF830C&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/oral-b/oral-b-cross-action-5ct-",
+  "betyg": 5.0,
+  "recensioner_antal": 3,
+  "butik": "Lyko",
+  "osaker": true,
+  "osakerhet": "Jag ser Braun-loggan och x6, men inte modellnamnet på paketet.",
+  "beskrivning": "Butikens namn på varan: Oral B Cross Action Refill 5 st. Ligger i trådhyllan – hygienkorgen.",
+  "grupp": "Hygien",
+  "foto": "vind/oralb-6pack.jpg"
+ },
+ {
+  "id": "oralb-sensi",
+  "varumarke": "Oral-B",
+  "titel": "Oral-B Sensi UltraThin borsthuvuden",
+  "kategori": "Tandvård",
+  "antal": 1,
+  "pris": 29,
+  "storlek": "",
+  "plats": "Trådhyllan – hygienkorgen",
+  "farg": "#0b4da2",
+  "bild": "vind/oralb-sensi.jpg",
+  "kalla": "https://lyko.com/sv/oral-b/oral-b-pro-expert-sensitive-protect-75-ml",
+  "betyg": 5.0,
+  "recensioner_antal": 1,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Oral B Pro-Expert Sensitive Protect 75 st. Ligger i trådhyllan – hygienkorgen.",
+  "grupp": "Hygien",
+  "foto": "vind/oralb-sensi.jpg",
+  "bild_ar_foto": true
+ },
+ {
+  "id": "idawarg-bla",
+  "varumarke": "Ida Warg",
+  "titel": "Ida Warg – ljusblå sprayburk 200 ml",
+  "kategori": "Hårvård",
+  "antal": 1,
+  "pris": 71,
+  "storlek": "200 ml",
+  "plats": "Trådhyllan – hygienkorgen",
+  "farg": "#d98a95",
+  "bild": "https://lyko.com/globalassets/product-images/ida-warg-dry-volume-shampoo-2300-118-0150_1.png?ref=257B097900&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/ida-warg/ida-warg-dry-shampoo",
+  "betyg": 2.0,
+  "recensioner_antal": 51,
+  "butik": "Lyko",
+  "osaker": true,
+  "osakerhet": "Burken ligger med etiketten nedåt – jag ser bara IDA WARG och formatet. Troligen torrschampo.",
+  "beskrivning": "Butikens namn på varan: IDA WARG Beauty Everyday Dry Shampoo 150 ml. Ligger i trådhyllan – hygienkorgen.",
+  "grupp": "Hår",
+  "foto": "vind/idawarg-bla.jpg"
+ },
+ {
+  "id": "veet",
+  "varumarke": "Veet",
+  "titel": "Veet Essential Inspirations hårborttagningskräm Legs & Body 200 ml",
+  "kategori": "Hårborttagning",
+  "antal": 1,
+  "pris": 92,
+  "storlek": "200 ml",
+  "plats": "Trådhyllan – hygienkorgen",
+  "farg": "#b5197a",
+  "bild": "https://lyko.com/globalassets/product-images/veet-hair-removal-cream-normal-1322-108-0200_1.jpg?ref=1B9E7F2451&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/veet/veet-hair-removal-cream-normal",
+  "betyg": 4.5,
+  "recensioner_antal": 20,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Veet Hair Removal Cream Normal 200 ml. Ligger i trådhyllan – hygienkorgen.",
+  "grupp": "Hygien"
+ },
+ {
+  "id": "depend-bryn",
+  "varumarke": "Depend",
+  "titel": "Depend Everyday Eye Ögonbrynsfärg Brun",
+  "kategori": "Makeup",
+  "antal": 1,
+  "pris": 74,
+  "storlek": "",
+  "plats": "Trådhyllan – hygienkorgen",
+  "farg": "#e0457b",
+  "bild": "https://lyko.com/globalassets/product-images/depend-ogonrynsfarg-brunsvart-1092-628-0003_1.jpg?ref=C63BC9273F&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/depend/depend-ogonrynsfarg-brunsvart",
+  "betyg": 4.9,
+  "recensioner_antal": 90,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Depend Everyday Eye Eyebrow Tint Brunsvart. Ligger i trådhyllan – hygienkorgen.",
+  "grupp": "Ansikte"
+ },
+ {
+  "id": "ob-tampong",
+  "varumarke": "o.b.",
+  "titel": "o.b. ProComfort Normal tamponger",
+  "kategori": "Mensskydd",
+  "antal": 1,
+  "pris": 31,
+  "storlek": "",
+  "plats": "Trådhyllan – hygienkorgen",
+  "farg": "#1b5fa8",
+  "bild": "https://lyko.com/globalassets/product-images/o.b-procomfort-normal-16p-1363-136-0002_1.jpg?ref=ACB8FCF55A&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/o.b/neutrogena-o.b-procomfort-normal-16p",
+  "betyg": 5.0,
+  "recensioner_antal": 2,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: O.B. ProComfort Tampons 16-pack Normal. Ligger i trådhyllan – hygienkorgen.",
+  "grupp": "Hygien"
+ },
+ {
+  "id": "bomullspinnar",
+  "varumarke": "Okänt märke",
+  "titel": "Bomullspinnar i rund burk (~300 st)",
+  "kategori": "Hygien",
+  "antal": 1,
+  "pris": 22,
+  "storlek": "",
+  "plats": "Trådhyllan – hygienkorgen",
+  "farg": "#8d857c",
+  "bild": "https://lyko.com/globalassets/product-images/topz-premium-cotton-sticks-2867-124-0300_1.jpg?ref=6867F14388&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/topz/topz-premium-cotton-sticks-300pcs",
+  "betyg": 4.7,
+  "recensioner_antal": 2,
+  "butik": "Lyko",
+  "osaker": true,
+  "osakerhet": "Burken är fotad rakt uppifrån – inget varumärke syns, bara pinnarna.",
+  "standin": true,
+  "beskrivning": "Butikens namn på varan: Topz Premium Cotton Sticks 300 st. Ligger i trådhyllan – hygienkorgen. Bilden visar en liknande produkt — varan på vinden är inte säkert identifierad.",
+  "grupp": "Hygien",
+  "foto": "vind/bomullspinnar.jpg"
+ },
+ {
+  "id": "rakblad-blister",
+  "varumarke": "Okänt märke",
+  "titel": "Rakbladsrefill i blisterkarta, 2 blad",
+  "kategori": "Rakning",
+  "antal": 1,
+  "pris": null,
+  "storlek": "",
+  "plats": "Trådhyllan – hygienkorgen",
+  "farg": "#8d857c",
+  "bild": "vind/rakblad-blister.jpg",
+  "kalla": "",
+  "betyg": null,
+  "recensioner_antal": null,
+  "butik": "",
+  "osaker": true,
+  "osakerhet": "Kartan är genomskinlig utan läsbar text på bilden – jag kan inte säga vilket märke eller vilken hyvel den hör till.",
+  "beskrivning": "Ligger i trådhyllan – hygienkorgen.",
+  "grupp": "Hygien",
+  "foto": "vind/rakblad-blister.jpg",
+  "bild_ar_foto": true
+ },
+ {
+  "id": "tbs-mango",
+  "varumarke": "The Body Shop",
+  "titel": "The Body Shop Mango Shower Gel 60 ml",
+  "kategori": "Dusch & bad",
+  "antal": 1,
+  "pris": 32,
+  "storlek": "60 ml",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#00573f",
+  "bild": "https://lyko.com/globalassets/product-images/the-body-shop-shower-gel-mango-60-ml-3210-125-0060_1.jpg?ref=23FEB9D651&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/the-body-shop/the-body-shop-shower-gel-mango-60-ml",
+  "betyg": 5.0,
+  "recensioner_antal": 2,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: The Body Shop Mango Shower Gel 60 ml. Ligger i trådhyllan – miniatyrkorgen.",
+  "grupp": "Kropp"
+ },
+ {
+  "id": "tbs-avocado",
+  "varumarke": "The Body Shop",
+  "titel": "The Body Shop Avocado Shower Cream 60 ml",
+  "kategori": "Dusch & bad",
+  "antal": 1,
+  "pris": 32,
+  "storlek": "60 ml",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#00573f",
+  "bild": "https://lyko.com/globalassets/product-images/the-body-shop-shower-cream-shea-60-ml-3210-135-0060_1.jpg?ref=C435F200CB&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/the-body-shop/the-body-shop-shower-cream-shea-60-ml",
+  "betyg": 3.7,
+  "recensioner_antal": 3,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: The Body Shop Shea Shower Cream 60 ml. Ligger i trådhyllan – miniatyrkorgen.",
+  "grupp": "Kropp"
+ },
+ {
+  "id": "tbs-britishrose",
+  "varumarke": "The Body Shop",
+  "titel": "The Body Shop British Rose Shower Gel 60 ml",
+  "kategori": "Dusch & bad",
+  "antal": 1,
+  "pris": 32,
+  "storlek": "60 ml",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#00573f",
+  "bild": "https://lyko.com/globalassets/product-images/the-body-shop-shower-gel-british-rose-60-ml-3210-284-0060_1.jpg?ref=98893EF186&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/the-body-shop/the-body-shop-shower-gel-british-rose-60-ml",
+  "betyg": 1.0,
+  "recensioner_antal": 4,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: The Body Shop British Rose Shower Gel 60 ml. Ligger i trådhyllan – miniatyrkorgen.",
+  "grupp": "Kropp"
+ },
+ {
+  "id": "tbs-shea",
+  "varumarke": "The Body Shop",
+  "titel": "The Body Shop Shea Conditioner 60 ml",
+  "kategori": "Hårvård",
+  "antal": 1,
+  "pris": 108,
+  "storlek": "60 ml",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#00573f",
+  "bild": "https://lyko.com/globalassets/product-images/the-body-shop-shea-intense-repair-conditioner-250-ml-3210-470-0250_1.jpg?ref=DE6FAEF0AC&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/the-body-shop/the-body-shop-shea-intense-repair-conditioner-250-ml",
+  "betyg": 5.0,
+  "recensioner_antal": 1,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: The Body Shop Shea Intense Repair Conditioner 250 ml. Ligger i trådhyllan – miniatyrkorgen.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "tbs-satsuma",
+  "varumarke": "The Body Shop",
+  "titel": "The Body Shop Satsuma Shower Gel 60 ml",
+  "kategori": "Dusch & bad",
+  "antal": 1,
+  "pris": 212,
+  "storlek": "60 ml",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#00573f",
+  "bild": "https://lyko.com/globalassets/product-images/the-body-shop-satsuma-shower-gel-750-ml-3210-285-0750_1.jpg?ref=F0FDE19D05&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/the-body-shop/the-body-shop-shower-gel-satsuma-750-ml",
+  "betyg": 5.0,
+  "recensioner_antal": 1,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: The Body Shop Satsuma Shower Gel 750 ml. Ligger i trådhyllan – miniatyrkorgen.",
+  "grupp": "Kropp"
+ },
+ {
+  "id": "tbs-coconut",
+  "varumarke": "The Body Shop",
+  "titel": "The Body Shop Coconut Shower Cream 60 ml",
+  "kategori": "Dusch & bad",
+  "antal": 1,
+  "pris": 32,
+  "storlek": "60 ml",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#00573f",
+  "bild": "https://lyko.com/globalassets/product-images/the-body-shop-shower-cream-coconut-60-ml-3210-120-0060_1.jpg?ref=438913DB4C&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/the-body-shop/the-body-shop-shower-cream-coconut-60-ml",
+  "betyg": 3.0,
+  "recensioner_antal": 1,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: The Body Shop Coconut Shower Cream 60 ml. Ligger i trådhyllan – miniatyrkorgen.",
+  "grupp": "Kropp"
+ },
+ {
+  "id": "tbs-strawberry",
+  "varumarke": "The Body Shop",
+  "titel": "The Body Shop Strawberry Shower Gel 60 ml",
+  "kategori": "Dusch & bad",
+  "antal": 1,
+  "pris": 32,
+  "storlek": "60 ml",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#00573f",
+  "bild": "https://lyko.com/globalassets/product-images/the-body-shop-shower-gel-strawberry-60-ml-3210-129-0060_1.jpg?ref=92A4A03C54&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/the-body-shop/the-body-shop-shower-gel-strawberry-60-ml",
+  "betyg": 3.8,
+  "recensioner_antal": 6,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: The Body Shop Strawberry Shower Gel 60 ml. Ligger i trådhyllan – miniatyrkorgen.",
+  "grupp": "Kropp"
+ },
+ {
+  "id": "tbs-grapefruit",
+  "varumarke": "The Body Shop",
+  "titel": "The Body Shop Pink Grapefruit Shower Gel 60 ml",
+  "kategori": "Dusch & bad",
+  "antal": 2,
+  "pris": 32,
+  "storlek": "60 ml",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#00573f",
+  "bild": "https://lyko.com/globalassets/product-images/the-body-shop-shower-gel-pink-grapefruit-60-ml-3210-144-0060_1.jpg?ref=9A888D3B81&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/the-body-shop/the-body-shop-shower-gel-pink-grapefruit-60-ml",
+  "betyg": 5.0,
+  "recensioner_antal": 1,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: The Body Shop Pink Grapefruit  Shower Gel 60 ml. Ligger i trådhyllan – miniatyrkorgen. Du har 2 exemplar.",
+  "grupp": "Kropp"
+ },
+ {
+  "id": "tbs-scrub",
+  "varumarke": "The Body Shop",
+  "titel": "The Body Shop British Rose Shower Scrub",
+  "kategori": "Kroppsvård",
+  "antal": 1,
+  "pris": 32,
+  "storlek": "",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#00573f",
+  "bild": "https://lyko.com/globalassets/product-images/the-body-shop-shower-gel-british-rose-60-ml-3210-284-0060_1.jpg?ref=98893EF186&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/the-body-shop/the-body-shop-shower-gel-british-rose-60-ml",
+  "betyg": 1.0,
+  "recensioner_antal": 4,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: The Body Shop British Rose Shower Gel 60 ml. Ligger i trådhyllan – miniatyrkorgen.",
+  "grupp": "Kropp"
+ },
+ {
+  "id": "mb-rhubarb",
+  "varumarke": "Molton Brown",
+  "titel": "Molton Brown Delicious Rhubarb & Rose Bath & Shower Gel (rese)",
+  "kategori": "Dusch & bad",
+  "antal": 1,
+  "pris": 236,
+  "storlek": "",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#1a1a1a",
+  "bild": "https://lyko.com/globalassets/product-images/molton-brown-delicious-rhubarb--rose-fine-liquid-hand-wash-300-ml-1423-353-0300_1.jpg?ref=B18E4A6274&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/molton-brown/molton-brown-delicious-rhubarb--rose-ha",
+  "betyg": 5.0,
+  "recensioner_antal": 6,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Molton Brown Delicious Rhubarb & Rose Fine Liquid Hand Wash 300 ml. Ligger i trådhyllan – miniatyrkorgen.",
+  "grupp": "Kropp"
+ },
+ {
+  "id": "mb-orange",
+  "varumarke": "Molton Brown",
+  "titel": "Molton Brown Orange & Bergamot Bath & Shower Gel 100 ml",
+  "kategori": "Dusch & bad",
+  "antal": 1,
+  "pris": 248,
+  "storlek": "100 ml",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#1a1a1a",
+  "bild": "https://lyko.com/globalassets/product-images/molton-brown-orange--bergamot-bath--shower-gel-300-ml--1423-333-0300_1.jpg?ref=6A5FF8982D&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/molton-brown/molton-brown-orangebergamot-body-wash",
+  "betyg": 2.0,
+  "recensioner_antal": 4,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Molton Brown Orange & Bergamot Bath & Shower Gel  300 ml. Ligger i trådhyllan – miniatyrkorgen.",
+  "grupp": "Kropp"
+ },
+ {
+  "id": "rit-sakura-tube",
+  "varumarke": "Rituals",
+  "titel": "Rituals The Ritual of Sakura Pearlescent Body Scrub (tub)",
+  "kategori": "Kroppsvård",
+  "antal": 1,
+  "pris": 167,
+  "storlek": "",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#8a6a3d",
+  "bild": "https://lyko.com/globalassets/product-images/rituals-the-ritual-of-sakura-body-scrub-250g-1808-767-0250_1.jpg?ref=CECB29F1F5&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/rituals/rituals-the-ritual-of-sakura-body-scrub-2633bda3",
+  "betyg": 4.4,
+  "recensioner_antal": 75,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Rituals The Ritual of Sakura Body Scrub - Blommig - Körsbärsblomma & Rismjölk 250 g. Ligger i trådhyllan – miniatyrkorgen.",
+  "grupp": "Kropp"
+ },
+ {
+  "id": "rit-hammam-jar",
+  "varumarke": "Rituals",
+  "titel": "Rituals The Ritual of Hammam Purifying Body Scrub (burk)",
+  "kategori": "Kroppsvård",
+  "antal": 1,
+  "pris": 167,
+  "storlek": "",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#8a6a3d",
+  "bild": "https://lyko.com/globalassets/product-images/rituals-the-ritual-of-mehr-body-scrub-250-g-1808-b75-0250_1.jpg?ref=5F84372A74&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/rituals/rituals-the-ritual-of-mehr-body-scrub-250-g",
+  "betyg": 4.9,
+  "recensioner_antal": 25,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Rituals The Ritual of Mehr Body Scrub 250 g. Ligger i trådhyllan – miniatyrkorgen.",
+  "grupp": "Kropp"
+ },
+ {
+  "id": "rit-sakura-jar",
+  "varumarke": "Rituals",
+  "titel": "Rituals The Ritual of Sakura Renewing Body Scrub (burk)",
+  "kategori": "Kroppsvård",
+  "antal": 1,
+  "pris": 167,
+  "storlek": "",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#8a6a3d",
+  "bild": "https://lyko.com/globalassets/product-images/rituals-the-ritual-of-sakura-body-scrub-250g-1808-767-0250_1.jpg?ref=CECB29F1F5&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/rituals/rituals-the-ritual-of-sakura-body-scrub-2633bda3",
+  "betyg": 4.4,
+  "recensioner_antal": 75,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Rituals The Ritual of Sakura Body Scrub - Blommig - Körsbärsblomma & Rismjölk 250 g. Ligger i trådhyllan – miniatyrkorgen.",
+  "grupp": "Kropp"
+ },
+ {
+  "id": "rit-vit-jar",
+  "varumarke": "Rituals",
+  "titel": "Rituals kroppsskrubb i vit burk (Sakura-familjen)",
+  "kategori": "Kroppsvård",
+  "antal": 1,
+  "pris": 167,
+  "storlek": "",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#8a6a3d",
+  "bild": "https://lyko.com/globalassets/product-images/rituals-the-ritual-of-ayurveda-body-scrub-300-g-1808-d01-0300_1.jpg?ref=0F9BAF5AFD&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/rituals/rituals-the-ritual-of-ayurveda-body-scrub-300-g",
+  "betyg": 5.0,
+  "recensioner_antal": 1,
+  "butik": "Lyko",
+  "osaker": true,
+  "osakerhet": "Burken står bakom de andra – jag ser Rituals-märket och sakura-tecknet men inte hela produktnamnet.",
+  "beskrivning": "Butikens namn på varan: Rituals The Ritual of Ayurveda Body Scrub 300 g. Ligger i trådhyllan – miniatyrkorgen.",
+  "grupp": "Kropp",
+  "foto": "vind/rit-vit-jar.jpg"
+ },
+ {
+  "id": "rit-salt-teal",
+  "varumarke": "Rituals",
+  "titel": "Rituals salt scrub, turkos burk – salt & sea minerals",
+  "kategori": "Kroppsvård",
+  "antal": 1,
+  "pris": 167,
+  "storlek": "",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#8a6a3d",
+  "bild": "https://lyko.com/globalassets/product-images/rituals-the-ritual-of-karma-softening-body-scrub-300-g-1808-a43-0300_1.jpg?ref=07A80BAB60&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/rituals/rituals-the-ritual-of-karma-softening-body-scrub-300-g",
+  "betyg": 4.2,
+  "recensioner_antal": 30,
+  "butik": "Lyko",
+  "osaker": true,
+  "osakerhet": "Texten 'soft skin salt scrub / salt & sea minerals' går att läsa, men vilket Ritual den tillhör syns inte tydligt.",
+  "beskrivning": "Butikens namn på varan: Rituals The Ritual of Karma Softening Body Scrub - Delikat Sött - Lotusblomma & Vitt Te 300 g. Ligger i trådhyllan – miniatyrkorgen.",
+  "grupp": "Kropp",
+  "foto": "vind/rit-salt-teal.jpg"
+ },
+ {
+  "id": "aussie",
+  "varumarke": "Aussie",
+  "titel": "Aussie Miracle Moist Conditioner",
+  "kategori": "Hårvård",
+  "antal": 1,
+  "pris": 329,
+  "storlek": "",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#6b2f8f",
+  "bild": "https://lyko.com/globalassets/product-images/aussie-miracle-moist-hydrating-conditioner-1000ml-1622-195-1000_1.jpg?ref=80BD5500DB&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/aussie/aussiemiraclemoisthydratingconditioner-1000ml",
+  "betyg": 4.0,
+  "recensioner_antal": 2,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Aussie Miracle Moist Hydrating Conditioner 1000 ml. Ligger i trådhyllan – miniatyrkorgen.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "oralb-tandkram",
+  "varumarke": "Oral-B",
+  "titel": "Oral-B 3D White Arctic Fresh tandkräm",
+  "kategori": "Tandvård",
+  "antal": 2,
+  "pris": 35,
+  "storlek": "",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#0b4da2",
+  "bild": "https://lyko.com/globalassets/product-images/oral-b-3d-white-arctic-fresh-tandkram-75-ml-1228-142-0075_1.jpg?ref=3130C5F85B&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/oral-b/oral-b-3d-white-arctic-fresh-tandkram-75",
+  "betyg": 5.0,
+  "recensioner_antal": 3,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Oral B Oral-B 3D White Arctic Fresh tandkräm 75 ml | lyko.com. Ligger i trådhyllan – miniatyrkorgen. Du har 2 exemplar.",
+  "grupp": "Hygien"
+ },
+ {
+  "id": "faceroller",
+  "varumarke": "Okänt märke",
+  "titel": "Ansiktsroller i guld/sten",
+  "kategori": "Hudvårdsverktyg",
+  "antal": 1,
+  "pris": 359,
+  "storlek": "",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#8d857c",
+  "bild": "https://lyko.com/globalassets/product-images/kerstin-florian-jade-facial-roller-instant-glow-2214-191-0000_1.jpg?ref=BF243AD7EF&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/kerstin-florian/kerstin-f.-jade-facial-roller-instant-glow",
+  "betyg": null,
+  "recensioner_antal": null,
+  "butik": "Lyko",
+  "osaker": true,
+  "osakerhet": "Ingen text syns på rullen – märket går inte att avgöra.",
+  "standin": true,
+  "beskrivning": "Butikens namn på varan: Kerstin Florian Jade Facial Roller (Instant Glow). Ligger i trådhyllan – miniatyrkorgen. Bilden visar en liknande produkt — varan på vinden är inte säkert identifierad.",
+  "grupp": "Ansikte",
+  "foto": "vind/faceroller.jpg"
+ },
+ {
+  "id": "vana-cond",
+  "varumarke": "VANA",
+  "titel": "VANA Conditioner of Thyme & Sage (hotellminiatyr)",
+  "kategori": "Hårvård",
+  "antal": 1,
+  "pris": null,
+  "storlek": "",
+  "plats": "Trådhyllan – miniatyrkorgen",
+  "farg": "#6b7a4a",
+  "bild": "vind/vana-cond.jpg",
+  "kalla": "",
+  "betyg": null,
+  "recensioner_antal": null,
+  "butik": "",
+  "osaker": true,
+  "osakerhet": "Etiketten är delvis skymd – jag läser VANA, CONDITIONER och thyme & sage men inte hela namnet.",
+  "beskrivning": "Ligger i trådhyllan – miniatyrkorgen.",
+  "grupp": "Hår",
+  "foto": "vind/vana-cond.jpg",
+  "bild_ar_foto": true
+ },
+ {
+  "id": "daily-concepts",
+  "varumarke": "Daily Concepts",
+  "titel": "Daily Concepts Multi-Functional Soap Sponge Aloe Vera 45 g",
+  "kategori": "Dusch & bad",
+  "antal": 1,
+  "pris": 112,
+  "storlek": "45 g",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#4a9b5c",
+  "bild": "https://caspercosmetics.co.uk/cdn/shop/files/DailyCsoapAloe.jpg?v=1752087630",
+  "kalla": "https://caspercosmetics.co.uk/products/daily-concepts-multi-functional-soap-sponge-aloe-vera",
+  "betyg": 4.8,
+  "recensioner_antal": 109,
+  "butik": "Casper Cosmetics",
+  "beskrivning": "Butikens namn på varan: Real Techniques     Miracle Complexion Sponge. Ligger i bordet – provsamlingen.",
+  "grupp": "Kropp"
+ },
+ {
+  "id": "aurelia",
+  "varumarke": "Aurelia London",
+  "titel": "Aurelia London Cell Revitalise Day Moisturiser 30 ml",
+  "kategori": "Ansiktskräm",
+  "antal": 1,
+  "pris": 590,
+  "storlek": "30 ml",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#b99a6b",
+  "bild": "https://lyko.com/globalassets/product-images/aurelia-cell-revitalise-day-moisturiser-30-ml-2695-120-0030_1.jpg?ref=994F683688&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/aurelia-london/aurelia-cell-revitalise-day-moisturiser-30-ml-",
+  "betyg": 5.0,
+  "recensioner_antal": 1,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Loreal Paris Age Perfect  Cell Renewal Day Cream SPF 30  50 ml. Ligger i bordet – provsamlingen.",
+  "grupp": "Ansikte"
+ },
+ {
+  "id": "tbs-teatree-wash",
+  "varumarke": "The Body Shop",
+  "titel": "The Body Shop Tea Tree Skin Clearing Facial Wash 60 ml",
+  "kategori": "Ansiktsrengöring",
+  "antal": 1,
+  "pris": 140,
+  "storlek": "60 ml",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#00573f",
+  "bild": "https://lyko.com/globalassets/product-images/the-body-shop-tea-tree-skin-clearing-facial-wash-250-ml-3210-379-0250_1.jpg?ref=6263A60DB3&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/the-body-shop/the-body-shop-tea-tree-skin-clearing-facial-wash-250-ml-c039e00a",
+  "betyg": 5.0,
+  "recensioner_antal": 2,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: The Body Shop Tea Tree Skin Clearing Facial Wash 250 ml. Ligger i bordet – provsamlingen.",
+  "grupp": "Ansikte"
+ },
+ {
+  "id": "tbs-teatree-toner",
+  "varumarke": "The Body Shop",
+  "titel": "The Body Shop Tea Tree Skin Clearing Toner 60 ml",
+  "kategori": "Ansiktsvatten",
+  "antal": 1,
+  "pris": 140,
+  "storlek": "60 ml",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#00573f",
+  "bild": "https://lyko.com/globalassets/product-images/the-body-shop-tea-tree-skin-clearing-toner-250-ml-3210-380-0250_1.jpg?ref=E96C110438&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/the-body-shop/the-body-shop-tea-tree-skin-clearing-toner-250-ml-74412a8b",
+  "betyg": 2.0,
+  "recensioner_antal": 2,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: The Body Shop Tea Tree Skin Clearing Toner 250 ml. Ligger i bordet – provsamlingen.",
+  "grupp": "Ansikte"
+ },
+ {
+  "id": "wellaflex",
+  "varumarke": "Wella",
+  "titel": "Wella Wellaflex 2-Tage Volumen hårspray",
+  "kategori": "Hårstyling",
+  "antal": 1,
+  "pris": 36,
+  "storlek": "",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#c8a951",
+  "bild": "https://lyko.com/globalassets/product-images/wellaflex-hairspray-volume-boost-extra-strong-250ml-2404-118-0250_1.jpg?ref=C3984B7A9D&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/wella-styling/wella-flex-hairsprayvolume-boost-extra-s",
+  "betyg": 4.8,
+  "recensioner_antal": 5,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Wella Styling WellaFlex Hairspray Volume Boost Extra Strong 250 ml. Ligger i bordet – provsamlingen.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "babor-cond",
+  "varumarke": "Babor",
+  "titel": "Babor Energizing Conditioner (rese)",
+  "kategori": "Hårvård",
+  "antal": 1,
+  "pris": 195,
+  "storlek": "",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#1a1a1a",
+  "bild": "vind/babor-cond.jpg",
+  "kalla": "https://lyko.com/sv/milk-shake/milk-shake-energizing-blend-conditioner-300ml",
+  "betyg": 3.0,
+  "recensioner_antal": 3,
+  "butik": "Lyko",
+  "beskrivning": "Ligger i bordet – provsamlingen.",
+  "grupp": "Hår",
+  "foto": "vind/babor-cond.jpg",
+  "bild_ar_foto": true
+ },
+ {
+  "id": "dermalogica",
+  "varumarke": "Dermalogica",
+  "titel": "Dermalogica Special Cleansing Gel 15 ml",
+  "kategori": "Ansiktsrengöring",
+  "antal": 1,
+  "pris": 148,
+  "storlek": "15 ml",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#1d7a6d",
+  "bild": "https://lyko.com/globalassets/product-images/dermalogica-special-cleansing-gel-50ml-1093-302-0050_1.jpg?ref=2DD8D70472&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/dermalogica/dermalogica-special-cleansing-gel-50ml",
+  "betyg": 4.5,
+  "recensioner_antal": 161,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Dermalogica Special Cleansing Gel 50 ml. Ligger i bordet – provsamlingen.",
+  "grupp": "Ansikte"
+ },
+ {
+  "id": "rit-namaste-glow",
+  "varumarke": "Rituals",
+  "titel": "Rituals The Ritual of Namaste Glow Anti-Ageing Day Cream (mini)",
+  "kategori": "Ansiktskräm",
+  "antal": 1,
+  "pris": 159,
+  "storlek": "",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#8a6a3d",
+  "bild": "https://lyko.com/globalassets/product-images/rituals-the-ritual-of-namaste-skin-care-set-daily-routine-1808-d15-0000_1.jpg?ref=C8C61A152F&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/rituals/rituals-the-ritual-of-namaste-skin-care-set-daily-routine",
+  "betyg": null,
+  "recensioner_antal": null,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Rituals The Ritual of Namaste Skin Care Set Daily Routine. Ligger i bordet – provsamlingen.",
+  "grupp": "Ansikte"
+ },
+ {
+  "id": "exuviance",
+  "varumarke": "Exuviance",
+  "titel": "Exuviance Triple Microdermabrasion Face Polish 10 g",
+  "kategori": "Peeling",
+  "antal": 1,
+  "pris": 679,
+  "storlek": "10 g",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#7a2f6b",
+  "bild": "https://lyko.com/globalassets/product-images/exuviance-achive-triple-microdermabrasion-face-polish-2782-111-0075_1.jpg?ref=C7C5595A6F&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/exuviance/exuviance-achive-triple-microdermabrasion-face-polish-",
+  "betyg": 4.6,
+  "recensioner_antal": 18,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Exuviance   Triple Microdermabrasion Face Polish 75 g. Ligger i bordet – provsamlingen.",
+  "grupp": "Ansikte"
+ },
+ {
+  "id": "rit-namaste-balm",
+  "varumarke": "Rituals",
+  "titel": "Rituals The Ritual of Namaste Purify Cleansing Balm (mini)",
+  "kategori": "Ansiktsrengöring",
+  "antal": 1,
+  "pris": 159,
+  "storlek": "",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#8a6a3d",
+  "bild": "https://lyko.com/globalassets/product-images/rituals-the-ritual-of-namaste-skin-care-set-cleanse-1808-d14-0000_1.jpg?ref=5D69A7589D&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/rituals/rituals-the-ritual-of-namaste-skin-care-set-cleanse",
+  "betyg": null,
+  "recensioner_antal": null,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Rituals The Ritual of Namaste Skin Care Set Cleanse. Ligger i bordet – provsamlingen.",
+  "grupp": "Ansikte"
+ },
+ {
+  "id": "niod",
+  "varumarke": "NIOD",
+  "titel": "NIOD Multi-Molecular Hyaluronic Complex 15 ml",
+  "kategori": "Serum",
+  "antal": 1,
+  "pris": 374,
+  "storlek": "15 ml",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#111111",
+  "bild": "https://www.spacenk.com/on/demandware.static/-/Sites-spacenkmastercatalog/default/dw65533fa1/products/NIOD/UK200031572_NIOD.jpg",
+  "kalla": "https://www.spacenk.com/us/skincare/treatment/serums/multi-molecular-hyaluronic-complex-MUK200031572.html",
+  "betyg": 4.8,
+  "recensioner_antal": 723,
+  "butik": "Space NK",
+  "beskrivning": "Butikens namn på varan: The Ordinary Hyaluronic Acid 2% + B5 30 ml. Ligger i bordet – provsamlingen.",
+  "grupp": "Ansikte"
+ },
+ {
+  "id": "nuxe-lift",
+  "varumarke": "Nuxe",
+  "titel": "Nuxe Merveillance Lift Firming Powdery Cream 15 ml",
+  "kategori": "Ansiktskräm",
+  "antal": 2,
+  "pris": 506,
+  "storlek": "15 ml",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#a8892b",
+  "bild": "https://lyko.com/globalassets/product-images/nuxe-merveillance-lift-firming-powdery-cream-wrinkle-correction-50ml-1221-453-0050_1.jpg?ref=74990DB458&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/nuxe/nuxe-merveillance-lift-firming-powdery-cream-wrinkle-correct",
+  "betyg": 2.0,
+  "recensioner_antal": 4,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Nuxe Merveillance LIFT Firming Powdery Cream 50 ml. Ligger i bordet – provsamlingen. Du har 2 exemplar.",
+  "grupp": "Ansikte"
+ },
+ {
+  "id": "mb-flora",
+  "varumarke": "Molton Brown",
+  "titel": "Molton Brown Flora Luminare Eau de Toilette (mini)",
+  "kategori": "Parfym",
+  "antal": 1,
+  "pris": 1388,
+  "storlek": "",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#1a1a1a",
+  "bild": "https://lyko.com/globalassets/product-images/molton-brown-flora-luminare-eau-de-parfume-100-ml-1423-528-0100_1.jpg?ref=DF696473F5&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/molton-brown/molton-brown-flora-luminare-eau-de-parfume-100-ml",
+  "betyg": null,
+  "recensioner_antal": null,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Molton Brown Flora Luminare Eau de Parfum  100 ml. Ligger i bordet – provsamlingen.",
+  "grupp": "Doft"
+ },
+ {
+  "id": "rit-namaste-foam",
+  "varumarke": "Rituals",
+  "titel": "Rituals The Ritual of Namaste Purify Cleansing Foam",
+  "kategori": "Ansiktsrengöring",
+  "antal": 2,
+  "pris": 159,
+  "storlek": "20 ml + 5 ml",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#8a6a3d",
+  "bild": "https://lyko.com/globalassets/product-images/rituals-the-ritual-of-namaste-skin-care-set-cleanse-1808-d14-0000_1.jpg?ref=5D69A7589D&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/rituals/rituals-the-ritual-of-namaste-skin-care-set-cleanse",
+  "betyg": null,
+  "recensioner_antal": null,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Rituals The Ritual of Namaste Skin Care Set Cleanse. Ligger i bordet – provsamlingen. Du har 2 exemplar.",
+  "grupp": "Ansikte"
+ },
+ {
+  "id": "skinco-gommage",
+  "varumarke": "Skin&Co Roma",
+  "titel": "Skin&Co Roma Truffle Therapy Face Gommage 20 ml",
+  "kategori": "Peeling",
+  "antal": 1,
+  "pris": 291,
+  "storlek": "20 ml",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#6b4423",
+  "bild": "https://skinandco.com/cdn/shop/files/36_c93992fc-a5ed-485d-b404-8c24a8a91563.jpg?v=1777979631&width=800",
+  "kalla": "https://skinandco.com/en-us/products/truffle-therapy-face-gommage",
+  "betyg": 5.0,
+  "recensioner_antal": 1,
+  "butik": "Skin&Co Roma",
+  "beskrivning": "Butikens namn på varan: Meroda Cosmetics Velvet Skin Primer 28 ml. Ligger i bordet – provsamlingen.",
+  "grupp": "Ansikte"
+ },
+ {
+  "id": "skinco-cleansing",
+  "varumarke": "Skin&Co Roma",
+  "titel": "Skin&Co Roma Truffle Therapy Whipped Cleansing Cream 20 ml",
+  "kategori": "Ansiktsrengöring",
+  "antal": 1,
+  "pris": 312,
+  "storlek": "20 ml",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#6b4423",
+  "bild": "https://skinandco.com/cdn/shop/files/8_62fecdb6-61ad-48ba-92ed-506d5ccf80ec.jpg?v=1777978566&width=800",
+  "kalla": "https://skinandco.com/en-us/products/truffle-therapy-whipped-cleansing-cream",
+  "betyg": 4.6,
+  "recensioner_antal": 347,
+  "butik": "Skin&Co Roma",
+  "beskrivning": "Butikens namn på varan: Banila Co Clean It Zero Cleansing Balm Original 180 ml. Ligger i bordet – provsamlingen.",
+  "grupp": "Ansikte"
+ },
+ {
+  "id": "rit-namaste-hydrate",
+  "varumarke": "Rituals",
+  "titel": "Rituals The Ritual of Namaste – liten vit tub",
+  "kategori": "Ansiktskräm",
+  "antal": 1,
+  "pris": 159,
+  "storlek": "",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#8a6a3d",
+  "bild": "https://lyko.com/globalassets/product-images/rituals-the-ritual-of-namaste-skin-care-set-daily-routine-1808-d15-0000_1.jpg?ref=C8C61A152F&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/rituals/rituals-the-ritual-of-namaste-skin-care-set-daily-routine",
+  "betyg": null,
+  "recensioner_antal": null,
+  "butik": "Lyko",
+  "osaker": true,
+  "osakerhet": "Tuben ligger vänd så bara RITUALS och en rad text syns – vilken Namaste-produkt det är går inte att läsa.",
+  "beskrivning": "Butikens namn på varan: Rituals The Ritual of Namaste Skin Care Set Daily Routine. Ligger i bordet – provsamlingen.",
+  "grupp": "Ansikte",
+  "foto": "vind/rit-namaste-hydrate.jpg"
+ },
+ {
+  "id": "babor-hydro",
+  "varumarke": "Babor",
+  "titel": "Babor Doctor Babor Hydro Cellular Hyaluron Cream (mini)",
+  "kategori": "Ansiktskräm",
+  "antal": 1,
+  "pris": 223,
+  "storlek": "",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#1a1a1a",
+  "bild": "vind/babor-hydro.jpg",
+  "kalla": "https://lyko.com/sv/isntree/isntree-hyaluronic-acid-moist-cream-100-ml",
+  "betyg": 4.8,
+  "recensioner_antal": 46,
+  "butik": "Lyko",
+  "beskrivning": "Ligger i bordet – provsamlingen.",
+  "grupp": "Ansikte",
+  "foto": "vind/babor-hydro.jpg",
+  "bild_ar_foto": true
+ },
+ {
+  "id": "mercihandy",
+  "varumarke": "Merci Handy",
+  "titel": "Merci Handy Hand Cleansing Gel Mystic Fruits 30 ml",
+  "kategori": "Handsprit",
+  "antal": 1,
+  "pris": 26,
+  "storlek": "30 ml",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#7b4ea8",
+  "bild": "https://lyko.com/globalassets/product-images/merci-handy-hand-cleansing-gel---mystic-fruits-30ml-1744-107-0030_1.jpg?ref=69E8D45B0C&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/merci-handy/merci-handy-hand-cleansing-gel---mystic-fruits-30ml",
+  "betyg": 3.8,
+  "recensioner_antal": 10,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Laura Mercier Hand Cream Soufflé Néroli du Sud 50 ml. Ligger i bordet – provsamlingen.",
+  "grupp": "Hygien"
+ },
+ {
+  "id": "filorga",
+  "varumarke": "Filorga",
+  "titel": "Filorga Time-Filler Absolute Wrinkle Correction Cream (mini)",
+  "kategori": "Ansiktskräm",
+  "antal": 1,
+  "pris": 629,
+  "storlek": "",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#2b2b6b",
+  "bild": "https://lyko.com/globalassets/product-images/filorga-time-filler-5-xp-cream-50ml-1690-245-0050_1.jpg?ref=5A79802282&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/filorga/filorga-time-filler-5-xp-cream-50ml",
+  "betyg": 4.0,
+  "recensioner_antal": 43,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: FILORGA   Time-Filler 5XP Cream 50 ml. Ligger i bordet – provsamlingen.",
+  "grupp": "Ansikte"
+ },
+ {
+  "id": "erborian",
+  "varumarke": "Erborian",
+  "titel": "Erborian BB Crème au Ginseng (provsachet)",
+  "kategori": "Makeup",
+  "antal": 1,
+  "pris": 255,
+  "storlek": "",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#b5121b",
+  "bild": "https://lyko.com/globalassets/product-images/erborian-bb-creme-nude-15-ml-3261-121-0015_1.jpg?ref=E5B241BBB8&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/erborian/erborian-bb-creme-nude-15-ml",
+  "betyg": 5.0,
+  "recensioner_antal": 3,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Erborian BB Creme Nude. Ligger i bordet – provsamlingen.",
+  "grupp": "Ansikte"
+ },
+ {
+  "id": "versace",
+  "varumarke": "Versace",
+  "titel": "Versace Bright Crystal EdT (provflaska)",
+  "kategori": "Parfym",
+  "antal": 1,
+  "pris": 554,
+  "storlek": "",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#c8a951",
+  "bild": "https://lyko.com/globalassets/product-images/versace-bright-crystal-edt-30-ml-1323-300-0030_1.jpg?ref=DD67C57210&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/versace/versace-bright-crystal-edt-30ml",
+  "betyg": 4.4,
+  "recensioner_antal": 92,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Versace Bright Crystal Eau de Toilette 30 ml. Ligger i bordet – provsamlingen.",
+  "grupp": "Doft"
+ },
+ {
+  "id": "rit-karma-sachet",
+  "varumarke": "Rituals",
+  "titel": "Rituals The Ritual of Karma Softening Body Scrub (sachet)",
+  "kategori": "Kroppsvård",
+  "antal": 1,
+  "pris": 167,
+  "storlek": "",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#8a6a3d",
+  "bild": "https://lyko.com/globalassets/product-images/rituals-the-ritual-of-karma-softening-body-scrub-300-g-1808-a43-0300_1.jpg?ref=07A80BAB60&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/rituals/rituals-the-ritual-of-karma-softening-body-scrub-300-g",
+  "betyg": 4.2,
+  "recensioner_antal": 30,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Rituals The Ritual of Karma Softening Body Scrub - Delikat Sött - Lotusblomma & Vitt Te 300 g. Ligger i bordet – provsamlingen.",
+  "grupp": "Kropp"
+ },
+ {
+  "id": "fresh-tea",
+  "varumarke": "Fresh",
+  "titel": "Fresh Tea Elixir Skin Resilience Serum (provkort)",
+  "kategori": "Serum",
+  "antal": 1,
+  "pris": 255,
+  "storlek": "",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#1d5e3f",
+  "bild": "https://lyko.com/globalassets/product-images/isntree-green-tea-fresh-serum-50-ml-3562-110-0050_1.jpg?ref=F8B54BA45E&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/isntree/isntree-green-tea-fresh-serum-50-ml",
+  "betyg": 5.0,
+  "recensioner_antal": 1,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Isntree Green Tea Fresh Serum 50 ml. Ligger i bordet – provsamlingen.",
+  "grupp": "Ansikte"
+ },
+ {
+  "id": "handsprit-lila",
+  "varumarke": "Okänt märke",
+  "titel": "Handsprit i lila/rosa fickflaska",
+  "kategori": "Handsprit",
+  "antal": 1,
+  "pris": null,
+  "storlek": "",
+  "plats": "Bordet – provsamlingen",
+  "farg": "#8d857c",
+  "bild": "vind/handsprit-lila.jpg",
+  "kalla": "",
+  "betyg": null,
+  "recensioner_antal": null,
+  "butik": "",
+  "osaker": true,
+  "osakerhet": "Etiketten är för liten och suddig för att läsa märket – ser ut som en fickhandsprit i bärstil.",
+  "beskrivning": "Ligger i bordet – provsamlingen.",
+  "grupp": "Hygien",
+  "foto": "vind/handsprit-lila.jpg",
+  "bild_ar_foto": true
+ },
+ {
+  "id": "foxy",
+  "varumarke": "Foxy",
+  "titel": "Foxy Hair Color Spray Silver Glitter 150 ml",
+  "kategori": "Hårstyling",
+  "antal": 1,
+  "pris": 55,
+  "storlek": "150 ml",
+  "plats": "Hårhyllan",
+  "farg": "#8f7fd8",
+  "bild": "vind/foxy.jpg",
+  "kalla": "https://lyko.com/sv/happy-crazy-mine/happy-crazy-mine-frost-color-hairspray",
+  "betyg": 3.9,
+  "recensioner_antal": 8,
+  "butik": "Lyko",
+  "beskrivning": "Ligger i hårhyllan.",
+  "grupp": "Hår",
+  "foto": "vind/foxy.jpg",
+  "bild_ar_foto": true
+ },
+ {
+  "id": "idawarg-heat",
+  "varumarke": "Ida Warg",
+  "titel": "Ida Warg Heat Protection Spray",
+  "kategori": "Hårstyling",
+  "antal": 2,
+  "pris": 80,
+  "storlek": "",
+  "plats": "Hårhyllan + svarta lådan",
+  "farg": "#d98a95",
+  "bild": "https://lyko.com/globalassets/product-images/ida-warg-uv--heat-protection-spray-150ml-2300-216-0150_1.jpg?ref=5EE7F5E458&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/ida-warg/ida-warg-uv---heat-protection-spray-150ml",
+  "betyg": 3.5,
+  "recensioner_antal": 23,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: IDA WARG Beauty UV & Heat Protection Spray 150 ml. Ligger i hårhyllan + svarta lådan. Du har 2 exemplar.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "batiste-blush",
+  "varumarke": "Batiste",
+  "titel": "Batiste Blush torrschampo 200 ml",
+  "kategori": "Torrschampo",
+  "antal": 1,
+  "pris": 52,
+  "storlek": "200 ml",
+  "plats": "Hårhyllan",
+  "farg": "#d4157a",
+  "bild": "https://lyko.com/globalassets/product-images/batiste-blush-200ml-1004-300-0200_1.jpg?ref=FB15921D37&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/batiste/batiste-dry-shampoo-blush",
+  "betyg": 4.3,
+  "recensioner_antal": 42,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Batiste Blush 200 ml. Ligger i hårhyllan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "rituals-hairmask",
+  "varumarke": "Rituals",
+  "titel": "Rituals Keratin Recovery Hair Mask 200 ml",
+  "kategori": "Hårinpackning",
+  "antal": 1,
+  "pris": 183,
+  "storlek": "200 ml",
+  "plats": "Hårhyllan",
+  "farg": "#8a6a3d",
+  "bild": "https://lyko.com/globalassets/product-images/rituals-elixir-collection-miracle-keratin-recovery-hair-mask-200ml-1808-a24-0200_1.jpg?ref=6E7425587E&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/rituals/rituals-elixir-collection-miracle-keratin-recovery-hair-mask",
+  "betyg": null,
+  "recensioner_antal": null,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Rituals Intense Hair Oil 45 ml. Ligger i hårhyllan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "ba-shampoo",
+  "varumarke": "Björn Axén",
+  "titel": "Björn Axén Color Stay Shampoo",
+  "kategori": "Schampo",
+  "antal": 1,
+  "pris": 157,
+  "storlek": "",
+  "plats": "Hårhyllan",
+  "farg": "#e8562a",
+  "bild": "https://lyko.com/globalassets/product-images/bjorn-axen-shampoo-250-ml-1000-401-0250_1.jpg?ref=7C9F33FB96&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/bjorn-axen/bjorn-ax-n-color-seal-shampoo-250-ml",
+  "betyg": 4.0,
+  "recensioner_antal": 3,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Björn Axén Color Seal Shampoo 250 ml. Ligger i hårhyllan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "ba-conditioner",
+  "varumarke": "Björn Axén",
+  "titel": "Björn Axén Color Stay Conditioner",
+  "kategori": "Balsam",
+  "antal": 1,
+  "pris": 163,
+  "storlek": "",
+  "plats": "Hårhyllan",
+  "farg": "#e8562a",
+  "bild": "https://lyko.com/globalassets/product-images/bjorn-axen-conditioner-250-ml-1000-402-0250_1.jpg?ref=D003FEBCC1&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/bjorn-axen/bjorn-ax-n-color-seal-conditioner-250-ml",
+  "betyg": 4.0,
+  "recensioner_antal": 1,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Björn Axén Color Seal Conditioner 250 ml. Ligger i hårhyllan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "jvn",
+  "varumarke": "JVN",
+  "titel": "JVN Complete Instant Recovery Serum 100 ml",
+  "kategori": "Hårvård",
+  "antal": 1,
+  "pris": 263,
+  "storlek": "100 ml",
+  "plats": "Hårhyllan",
+  "farg": "#c8b28a",
+  "bild": "https://lyko.com/globalassets/product-images/jvn-complete-instant-recovery-serum-50-ml-4077-102-0050_1.jpg?ref=AF60215056&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/jvn/jvn-complete-instant-recovery-serum-50-ml",
+  "betyg": null,
+  "recensioner_antal": null,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: JVN Complete Instant Recovery Serum 50 ml. Ligger i hårhyllan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "colorwow",
+  "varumarke": "Color Wow",
+  "titel": "Color Wow Dream Coat Supernatural Spray",
+  "kategori": "Hårstyling",
+  "antal": 1,
+  "pris": 263,
+  "storlek": "",
+  "plats": "Hårhyllan",
+  "farg": "#8e8e8e",
+  "bild": "https://lyko.com/globalassets/product-images/colorwow-dream-coat-supernatural-spray-200ml-1634-111-0200_1.jpg?ref=E7223DA2B4&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/color-wow/colorwow-dream-coatsupernatural-spray-2",
+  "betyg": 3.8,
+  "recensioner_antal": 546,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Color Wow Dream Coat Supernatural Spray 200 ml | lyko.com. Ligger i hårhyllan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "marianila-dry",
+  "varumarke": "Maria Nila",
+  "titel": "Maria Nila Dry Shampoo 250 ml",
+  "kategori": "Torrschampo",
+  "antal": 1,
+  "pris": 271,
+  "storlek": "250 ml",
+  "plats": "Hårhyllan",
+  "farg": "#2f6b46",
+  "bild": "https://lyko.com/globalassets/product-images/maria-nila-soothing-dry-shampoo-250-ml-1003-495-0250_1.jpg?ref=C554968F4A&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/maria-nila/maria-nila-soothing-dry-shampoo-250-ml",
+  "betyg": 4.3,
+  "recensioner_antal": 23,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: maria nila Style & Finish Soothing Dry Shampoo  250 ml. Ligger i hårhyllan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "session-salt",
+  "varumarke": "Schwarzkopf",
+  "titel": "Schwarzkopf Session Label The Salt saltspray 200 ml",
+  "kategori": "Hårstyling",
+  "antal": 1,
+  "pris": 198,
+  "storlek": "200 ml",
+  "plats": "Hårhyllan",
+  "farg": "#1a1a1a",
+  "bild": "https://lyko.com/globalassets/product-images/schwarzkopf-professional-the-salt-salt-spray-200-ml-1277-a29-0200_1.jpg?ref=515C99ECF0&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/schwarzkopf-professional/schwarzkopf-professional-the-salt-salt-spray-200-ml",
+  "betyg": 1.6,
+  "recensioner_antal": 2,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Schwarzkopf Professional Session Label THE SALT Salt Spray 200 ml | lyko.com. Ligger i hårhyllan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "fries-color",
+  "varumarke": "Fries",
+  "titel": "Fries Color Hair Spray (färgspray)",
+  "kategori": "Hårstyling",
+  "antal": 1,
+  "pris": 55,
+  "storlek": "",
+  "plats": "Svarta hårlådan",
+  "farg": "#e8562a",
+  "bild": "vind/fries-color.jpg",
+  "kalla": "https://lyko.com/sv/happy-crazy-mine/happy-crazy-mine-pink-color-hairspray",
+  "betyg": 3.9,
+  "recensioner_antal": 8,
+  "butik": "Lyko",
+  "beskrivning": "Ligger i svarta hårlådan.",
+  "grupp": "Hår",
+  "foto": "vind/fries-color.jpg",
+  "bild_ar_foto": true
+ },
+ {
+  "id": "bnh-coconut",
+  "varumarke": "Brave. New. Hair.",
+  "titel": "Brave. New. Hair. Coconut Cuddle Hair Cream 50 ml",
+  "kategori": "Hårstyling",
+  "antal": 1,
+  "pris": 191,
+  "storlek": "50 ml",
+  "plats": "Svarta hårlådan",
+  "farg": "#f0c9d0",
+  "bild": "https://lyko.com/globalassets/product-images/brave-new-hair-coconut-cuddle-hair-cream-150-ml-2788-117-0150_1.jpg?ref=A10AC924D9&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/brave-new-hair/brave-new-hair-coconut-cuddle-150-ml",
+  "betyg": 5.0,
+  "recensioner_antal": 3,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Brave New Hair Coconut Cuddle Hair Cream 150 ml. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "drpawpaw",
+  "varumarke": "Dr.PawPaw",
+  "titel": "Dr.PawPaw It Does It All 7-in-1 Hair Treatment Styler",
+  "kategori": "Hårstyling",
+  "antal": 1,
+  "pris": 178,
+  "storlek": "",
+  "plats": "Svarta hårlådan",
+  "farg": "#e8b923",
+  "bild": "https://static.thcdn.com/productimg/1600/1600/11686659-1974553993539449.jpg",
+  "kalla": "https://www.lookfantastic.com/p/dr.-pawpaw-it-does-it-all-7-in-1-hair-treatment-styler-150ml/11686659/",
+  "betyg": 4.1,
+  "recensioner_antal": 3,
+  "butik": "Lookfantastic",
+  "beskrivning": "Butikens namn på varan: Dr. PawPaw Rich Mocha 10 ml. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "livingproof",
+  "varumarke": "Living Proof",
+  "titel": "Living Proof Triple Bond Complex",
+  "kategori": "Hårvård",
+  "antal": 1,
+  "pris": 157,
+  "storlek": "",
+  "plats": "Svarta hårlådan",
+  "farg": "#1b3f6b",
+  "bild": "https://lyko.com/globalassets/product-images/living-proof-triple-bond-complex-hair-strengthener-15ml-1696-208-0015_2.jpg?ref=B18A1FB0A9&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/living-proof/living-proof-triple-bond-complex-15ml",
+  "betyg": 4.0,
+  "recensioner_antal": 27,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Living Proof Triple Bond Complex Hair Strengthener 15 ml. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "olaplex3",
+  "varumarke": "Olaplex",
+  "titel": "Olaplex No.3 Hair Perfector 100 ml",
+  "kategori": "Hårinpackning",
+  "antal": 2,
+  "pris": 591,
+  "storlek": "100 ml",
+  "plats": "Svarta hårlådan",
+  "farg": "#1f1f1f",
+  "bild": "https://lyko.com/globalassets/product-images/olaplex-hair-perfector-no.3-1737-100-0250_1.jpg?ref=E4192EF999&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/olaplex/olaplex-hair-perfector-no-3-100ml-6c58ec2d",
+  "betyg": 3.7,
+  "recensioner_antal": 891,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Olaplex Hair Perfector No.3 250 ml. Ligger i svarta hårlådan. Du har 2 exemplar.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "olaplex4",
+  "varumarke": "Olaplex",
+  "titel": "Olaplex No.4 Bond Maintenance Shampoo 100 ml",
+  "kategori": "Schampo",
+  "antal": 2,
+  "pris": 227,
+  "storlek": "100 ml",
+  "plats": "Svarta hårlådan",
+  "farg": "#1f1f1f",
+  "bild": "https://lyko.com/globalassets/product-images/olaplex-bond-maintenance-shampoo-no4-250ml-1737-105-0250_12.jpg?ref=F5C55C17DC&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/olaplex/olaplex---bond-maintenance-shampoo-no4",
+  "betyg": 4.2,
+  "recensioner_antal": 283,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Olaplex No.4 Bond Maintenance Shampoo 250 ml. Ligger i svarta hårlådan. Du har 2 exemplar.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "olaplex5",
+  "varumarke": "Olaplex",
+  "titel": "Olaplex No.5 Bond Maintenance Conditioner 100 ml",
+  "kategori": "Balsam",
+  "antal": 2,
+  "pris": 303,
+  "storlek": "100 ml",
+  "plats": "Svarta hårlådan",
+  "farg": "#1f1f1f",
+  "bild": "https://lyko.com/globalassets/product-images/olaplex-bond-maintenance-conditioner-no5-250ml-1737-106-0250_12.jpg?ref=D0BFF21300&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/olaplex/olaplex---bond-maintenance-conditioner",
+  "betyg": 4.0,
+  "recensioner_antal": 188,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Olaplex No.5 Bond Maintenance Conditioner 250 ml. Ligger i svarta hårlådan. Du har 2 exemplar.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "mn-heatspray",
+  "varumarke": "Maria Nila",
+  "titel": "Maria Nila Cream Heat Spray",
+  "kategori": "Hårstyling",
+  "antal": 1,
+  "pris": 254,
+  "storlek": "",
+  "plats": "Svarta hårlådan",
+  "farg": "#2f6b46",
+  "bild": "https://lyko.com/globalassets/product-images/maria-nila-cream-heat-spray-150ml-1003-162-0000_1.jpg?ref=0AA0AA04D5&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/maria-nila/maria-nila-style-finish-cream-heat-spray",
+  "betyg": 4.0,
+  "recensioner_antal": 195,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: maria nila Style&Finish Cream Heat Spray 150 ml. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "paradoxx",
+  "varumarke": "We Are Paradoxx",
+  "titel": "We Are Paradoxx Moisture Express Hair Mask 40 ml",
+  "kategori": "Hårinpackning",
+  "antal": 1,
+  "pris": 396,
+  "storlek": "40 ml",
+  "plats": "Svarta hårlådan",
+  "farg": "#e0457b",
+  "bild": "https://static.thcdn.com/productimg/original/12872539-1745094438700275.jpg",
+  "kalla": "https://www.lookfantastic.com/p/we-are-paradoxx-moisture-express-hair-mask-200ml/12872539/",
+  "betyg": 5.0,
+  "recensioner_antal": 8,
+  "butik": "Lookfantastic",
+  "beskrivning": "Butikens namn på varan: Garnier Respons Hair Remedy 3-Honey Strengtening Mask 340 ml. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "uniqone",
+  "varumarke": "Revlon Professional",
+  "titel": "Revlon Professional UniqOne All In One Hair Treatment 150 ml",
+  "kategori": "Hårvård",
+  "antal": 1,
+  "pris": 216,
+  "storlek": "150 ml",
+  "plats": "Svarta hårlådan",
+  "farg": "#c8102e",
+  "bild": "https://lyko.com/globalassets/product-images/uniq-one-hair-treatment-coconut-150-ml-1317-310-0150_1.jpg?ref=B54B035C14&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/uniq-one/uniq-one-hair-treatment-coconut-150-ml",
+  "betyg": 4.2,
+  "recensioner_antal": 13,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Uniq One Hair Treatment Coconut 150 ml. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "uniqone-mini",
+  "varumarke": "Revlon Professional",
+  "titel": "Revlon Professional UniqOne All In One (resestorlek)",
+  "kategori": "Hårvård",
+  "antal": 1,
+  "pris": 216,
+  "storlek": "",
+  "plats": "Svarta hårlådan",
+  "farg": "#c8102e",
+  "bild": "https://lyko.com/globalassets/product-images/uniq-one-hair-treatment-lotus-flower-150-ml-1317-311-0150_1.jpg?ref=23D14DE64B&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/uniq-one/uniq-one-hair-treatment-lotus-flower-150-ml",
+  "betyg": 4.9,
+  "recensioner_antal": 6,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Uniq One Hair Treatment Lotus Flower 150 ml. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "ba-bonding",
+  "varumarke": "Björn Axén",
+  "titel": "Björn Axén Repair Bonding Serum",
+  "kategori": "Hårvård",
+  "antal": 1,
+  "pris": 173,
+  "storlek": "",
+  "plats": "Svarta hårlådan",
+  "farg": "#e8562a",
+  "bild": "https://lyko.com/globalassets/product-images/bjorn-axen-repair-bonding-serum-50-ml-1000-434-0050_12.jpg?ref=AA2ADA83B9&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/bjorn-axen/bjorn-ax-n-repair-bonding-serum-50-ml",
+  "betyg": 3.8,
+  "recensioner_antal": 22,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Björn Axén Repair Bonding Serum 50 ml. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "k18",
+  "varumarke": "K18",
+  "titel": "K18 Leave-In Molecular Repair Hair Mask 15 ml",
+  "kategori": "Hårinpackning",
+  "antal": 1,
+  "pris": 279,
+  "storlek": "15 ml",
+  "plats": "Svarta hårlådan",
+  "farg": "#111111",
+  "bild": "https://lyko.com/globalassets/product-images/k18-leave-in-molecular-repair-mask-15-ml-2877-105-0015_1.jpg?ref=45BAAF6E97&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/k18/k18-leave-in-repair-hair-mask-15-ml",
+  "betyg": 4.4,
+  "recensioner_antal": 670,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: K18 Leave In Molecular Repair Mask 15 ml. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "osis-magic",
+  "varumarke": "Schwarzkopf",
+  "titel": "Schwarzkopf OSiS+ Magic Anti-Frizz Shine Serum",
+  "kategori": "Hårstyling",
+  "antal": 1,
+  "pris": 143,
+  "storlek": "",
+  "plats": "Svarta hårlådan",
+  "farg": "#1a1a1a",
+  "bild": "https://lyko.com/globalassets/product-images/schwarzkopf-professional-glow-50-ml-1277-a66-0050_1.jpg?ref=1A565E2BDB&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/schwarzkopf-professional/schwarzkopf-professional-osis-glow-50-ml",
+  "betyg": 3.1,
+  "recensioner_antal": 6,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Schwarzkopf Professional Osis+ Smooth & Shine Glow 50 ml. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "lernberger-bb",
+  "varumarke": "Lernberger Stafsing",
+  "titel": "Lernberger Stafsing Leave-In Treatment BB Cream 150 ml",
+  "kategori": "Hårvård",
+  "antal": 1,
+  "pris": 292,
+  "storlek": "150 ml",
+  "plats": "Svarta hårlådan",
+  "farg": "#b89b6a",
+  "bild": "https://lyko.com/globalassets/product-images/lernberger-stafsing-bb-cream--leave-in-treatment--150-ml-1182-365-0150_1.jpg?ref=DACF6303F5&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/lernberger-stafsing/lernberger-stafsing-bb-cream--leave-in-treatment-150-ml",
+  "betyg": 4.5,
+  "recensioner_antal": 10,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Lernberger Stafsing BB Cream – Leave-in Treatment 150 ml. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "antonio-axu",
+  "varumarke": "Antonio Axu",
+  "titel": "Antonio Axu Anti-Frizz Repair Cream",
+  "kategori": "Hårstyling",
+  "antal": 1,
+  "pris": 135,
+  "storlek": "",
+  "plats": "Svarta hårlådan",
+  "farg": "#c9a227",
+  "bild": "https://lyko.com/globalassets/product-images/antonio-axu-leave-in-repair-cream-150ml-1787-117-0150_12.jpg?ref=94A9E46D68&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/antonio-axu/antonio-axu-leave-inrepair-cream-150ml",
+  "betyg": 2.3,
+  "recensioner_antal": 20,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Antonio Axu Anti-Frizz Repair Cream 150 ml | lyko.com. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "mn-cleansing",
+  "varumarke": "Maria Nila",
+  "titel": "Maria Nila Cleansing Powder",
+  "kategori": "Torrschampo",
+  "antal": 1,
+  "pris": 195,
+  "storlek": "",
+  "plats": "Svarta hårlådan",
+  "farg": "#2f6b46",
+  "bild": "https://lyko.com/globalassets/product-images/maria-nila-style--finish-cleansing-powder-60g-1003-201-0060_1.jpg?ref=31FE93B4F9&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/maria-nila/maria-nila-style---finish-cleansing-powder-60g",
+  "betyg": 4.6,
+  "recensioner_antal": 254,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: maria nila Style&Finish Cleansing Powder 60 g. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "batiste-bare",
+  "varumarke": "Batiste",
+  "titel": "Batiste Bare torrschampo 200 ml",
+  "kategori": "Torrschampo",
+  "antal": 1,
+  "pris": 47,
+  "storlek": "200 ml",
+  "plats": "Svarta hårlådan",
+  "farg": "#d4157a",
+  "bild": "https://static.thcdn.com/productimg/original/15318337-2145139791643693.jpg",
+  "kalla": "https://www.lookfantastic.com/p/batiste-bare-dry-shampoo-200ml/15318337/",
+  "betyg": 4.5,
+  "recensioner_antal": 17,
+  "butik": "Lookfantastic",
+  "beskrivning": "Butikens namn på varan: Happy Crazy Mine Pheew! Barely There Dry Shampoo 300 ml. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "edgie",
+  "varumarke": "Edgie",
+  "titel": "Edgie 'New Breeze in Town' torrschampo",
+  "kategori": "Torrschampo",
+  "antal": 1,
+  "pris": 60,
+  "storlek": "",
+  "plats": "Svarta hårlådan",
+  "farg": "#c8d43a",
+  "bild": "vind/edgie.jpg",
+  "kalla": "https://lyko.com/sv/rituals/rituals-refreshing-dry-shampoo-50-ml",
+  "betyg": 1.0,
+  "recensioner_antal": 1,
+  "butik": "Lyko",
+  "osaker": true,
+  "osakerhet": "Jag läser produktnamnet 'New Breeze in Town' och slutet av märkesnamnet (…DGIE) – märket är min tolkning.",
+  "beskrivning": "Ligger i svarta hårlådan.",
+  "grupp": "Hår",
+  "foto": "vind/edgie.jpg",
+  "bild_ar_foto": true
+ },
+ {
+  "id": "ls-dryclean",
+  "varumarke": "Lernberger Stafsing",
+  "titel": "Lernberger Stafsing Dryclean Soft 200 ml",
+  "kategori": "Torrschampo",
+  "antal": 1,
+  "pris": 292,
+  "storlek": "200 ml",
+  "plats": "Svarta hårlådan",
+  "farg": "#b89b6a",
+  "bild": "https://lyko.com/globalassets/product-images/lernberger-stafsing-dryclean-soft-spray-300-ml-1182-380-0300_1.jpg?ref=7CF5F53AC7&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/lernberger-stafsing/lernberger-stafsing-dryclean-soft-spray-300-ml",
+  "betyg": 3.4,
+  "recensioner_antal": 4,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Lernberger Stafsing DryClean Soft Spray 300 ml. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "ls-fibermousse",
+  "varumarke": "Lernberger Stafsing",
+  "titel": "Lernberger Stafsing Fiber Mousse 200 ml",
+  "kategori": "Hårstyling",
+  "antal": 1,
+  "pris": 276,
+  "storlek": "200 ml",
+  "plats": "Svarta hårlådan",
+  "farg": "#b89b6a",
+  "bild": "https://lyko.com/globalassets/product-images/lernberger-stafsing-thickening-fiber-mousse--200-ml-1182-369-0200_1.jpg?ref=803C737E8F&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/lernberger-stafsing/lernberger-stafsing-thickening-fiber-mousse-200-ml",
+  "betyg": 4.7,
+  "recensioner_antal": 11,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Lernberger Stafsing Thickening Fiber Mousse 200 ml. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "mn-truesoft",
+  "varumarke": "Maria Nila",
+  "titel": "Maria Nila True Soft Shampoo 350 ml",
+  "kategori": "Schampo",
+  "antal": 1,
+  "pris": 271,
+  "storlek": "350 ml",
+  "plats": "Svarta hårlådan",
+  "farg": "#2f6b46",
+  "bild": "https://lyko.com/globalassets/product-images/maria-nila-true-soft-shampoo-350ml-1003-111-0350_12.jpg?ref=32D57E97D9&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/maria-nila/maria-nila-palett-shampoo-true-soft",
+  "betyg": 4.3,
+  "recensioner_antal": 124,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: maria nila True Soft Shampoo 350 ml. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "amika",
+  "varumarke": "Amika",
+  "titel": "Amika Brooklyn Bombshell Blowout Spray 200 ml",
+  "kategori": "Hårstyling",
+  "antal": 1,
+  "pris": 279,
+  "storlek": "200 ml",
+  "plats": "Svarta hårlådan",
+  "farg": "#7b4ea8",
+  "bild": "https://lyko.com/globalassets/product-images/amika-brooklyn-bombshell-blowout-volume-spray-200-ml-1035-336-0200_1.jpg?ref=287AA828F4&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/amika/amika-brooklyn-bombsblowout-volume-spray2",
+  "betyg": 3.4,
+  "recensioner_antal": 37,
+  "butik": "Lyko",
+  "beskrivning": "Butikens namn på varan: Amika Brooklyn Bombshell Blowout Spray 200 ml. Ligger i svarta hårlådan.",
+  "grupp": "Hår"
+ },
+ {
+  "id": "mn-colour",
+  "varumarke": "Maria Nila",
+  "titel": "Maria Nila Colour Refresh (röd flaska)",
+  "kategori": "Hårfärg",
+  "antal": 1,
+  "pris": 271,
+  "storlek": "",
+  "plats": "Svarta hårlådan",
+  "farg": "#2f6b46",
+  "bild": "https://lyko.com/globalassets/product-images/maria-nila-cacao-intense-300ml-1003-138-0300_1.jpg?ref=4C59254BB5&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/maria-nila/maria-nila-palette-colour-refresh-cacao-intense",
+  "betyg": 3.5,
+  "recensioner_antal": 636,
+  "butik": "Lyko",
+  "osaker": true,
+  "osakerhet": "Flaskan ligger med etiketten bortvänd – jag ser maria nila och den röda färgen, vilken nyans går inte att avgöra.",
+  "beskrivning": "Butikens namn på varan: maria nila Colour Refresh Semi-Permanent Color Mask 4.10 Cacao Intense. Ligger i svarta hårlådan.",
+  "grupp": "Hår",
+  "foto": "vind/mn-colour.jpg"
+ },
+ {
+  "id": "glimmer-primer",
+  "varumarke": "Okänt märke",
+  "titel": "Gul tub – 'Happy Crazy Mine' glimmer primer",
+  "kategori": "Hårstyling",
+  "antal": 1,
+  "pris": 74,
+  "storlek": "",
+  "plats": "Svarta hårlådan",
+  "farg": "#8d857c",
+  "bild": "https://lyko.com/globalassets/product-images/happy-crazy-mine-shimmer-glimmer-glow-primer-100-ml-1750-121-0100_1.jpg?ref=540CC573A0&w=600&h=600&quality=75",
+  "kalla": "https://lyko.com/sv/happy-crazy-mine/happy-crazy-mine-shimmer-glimmer-glow-primer-100-ml",
+  "betyg": 3.9,
+  "recensioner_antal": 25,
+  "butik": "Lyko",
+  "osaker": true,
+  "osakerhet": "Texten på tuben går bara delvis att läsa – jag hittar ingen säker produkt bakom den.",
+  "beskrivning": "Butikens namn på varan: Happy Crazy Mine Shimmer Glimmer Glow Primer 100 ml. Ligger i svarta hårlådan.",
+  "grupp": "Hår",
+  "foto": "vind/glimmer-primer.jpg"
+ },
+ {
+  "id": "haroljan",
+  "varumarke": "Okänt märke",
+  "titel": "Hårolja i liten glasflaska",
+  "kategori": "Hårvård",
+  "antal": 1,
+  "pris": null,
+  "storlek": "",
+  "plats": "Svarta hårlådan",
+  "farg": "#8d857c",
+  "bild": "vind/haroljan.jpg",
+  "kalla": "",
+  "betyg": null,
+  "recensioner_antal": null,
+  "butik": "",
+  "osaker": true,
+  "osakerhet": "Etiketten syns inte – bara 'hair oil' och en klar flaska med gul olja.",
+  "beskrivning": "Ligger i svarta hårlådan.",
+  "grupp": "Hår",
+  "foto": "vind/haroljan.jpg",
+  "bild_ar_foto": true
+ },
+ {
+  "id": "loreal-guld",
+  "varumarke": "L'Oréal",
+  "titel": "L'Oréal – guldflaska med vitt band (presentförpackning)",
+  "kategori": "Hårvård",
+  "antal": 1,
+  "pris": null,
+  "storlek": "",
+  "plats": "Svarta hårlådan",
+  "farg": "#c8a951",
+  "bild": "vind/loreal-guld.jpg",
+  "kalla": "",
+  "betyg": null,
+  "recensioner_antal": null,
+  "butik": "",
+  "osaker": true,
+  "osakerhet": "Bara L'ORÉAL syns på flaskhalsen – produkten går inte att avgöra.",
+  "beskrivning": "Ligger i svarta hårlådan.",
+  "grupp": "Hår",
+  "foto": "vind/loreal-guld.jpg",
+  "bild_ar_foto": true
+ }
+]
+</script>
+
+<script>
+/* ---------------- data & state ---------------- */
+const RAW = JSON.parse(document.getElementById('vind-data').textContent);
+const LS={stock:'vindhora.stock.v1',cart:'vindhora.cart.v1',orders:'vindhora.orders.v1'};
+const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
+const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let taken=load(LS.stock,{}), cart=load(LS.cart,{}), orders=load(LS.orders,[]);
+let F={grupp:'ALLA',kat:null,brands:new Set(),multi:false,osaker:false,slut:false,q:''};
+
+const GRUPPER=['Hår','Ansikte','Kropp','Hygien','Doft','Övrigt'];
+const kvar=p=>Math.max(0,(p.antal||0)-(taken[p.id]||0));
+const inCart=id=>cart[id]||0;
+const kr=n=>(n==null?'—':new Intl.NumberFormat('sv-SE').format(Math.round(n))+' kr');
+const norm=s=>(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const byId=id=>RAW.find(p=>p.id===id);
+function brandColor(p){
+  if(p.farg) return p.farg;
+  let h=0; const s=p.varumarke||p.titel||'x';
+  for(let i=0;i<s.length;i++) h=(h*31+s.charCodeAt(i))|0;
+  return `hsl(${Math.abs(h)%360} 34% 40%)`;
+}
+const stars=n=>n?'★★★★★'.slice(0,Math.round(n))+'☆☆☆☆☆'.slice(0,5-Math.round(n)):'';
+
+/* ---------------- urval ---------------- */
+function groupCounts(){
+  const m=new Map();
+  RAW.forEach(p=>m.set(p.grupp,(m.get(p.grupp)||0)+1));
+  return GRUPPER.filter(g=>m.get(g)).map(g=>[g,m.get(g)]);
+}
+function subCounts(grupp){
+  const m=new Map();
+  RAW.filter(p=>p.grupp===grupp).forEach(p=>m.set(p.kategori,(m.get(p.kategori)||0)+1));
+  return [...m.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'sv'));
+}
+function brandCounts(){
+  const pool=RAW.filter(p=>F.grupp==='ALLA'||p.grupp===F.grupp);
+  const m=new Map();
+  pool.forEach(p=>{const b=p.varumarke||'Okänt'; if(!m.has(b)) m.set(b,{n:0,c:brandColor(p)}); m.get(b).n++});
+  return [...m.entries()].sort((a,b)=>b[1].n-a[1].n||a[0].localeCompare(b[0],'sv'));
+}
+function filtered(){
+  const q=norm(F.q);
+  const out=RAW.filter(p=>{
+    if(F.grupp!=='ALLA'&&p.grupp!==F.grupp) return false;
+    if(F.kat&&p.kategori!==F.kat) return false;
+    if(F.brands.size&&!F.brands.has(p.varumarke||'Okänt')) return false;
+    if(F.multi&&kvar(p)<2) return false;
+    if(F.osaker&&!p.osaker) return false;
+    if(F.slut&&kvar(p)===0) return false;
+    if(q){
+      const hay=norm([p.titel,p.varumarke,p.kategori,p.grupp,p.storlek,p.plats].join(' '));
+      if(!q.split(/\s+/).every(t=>hay.includes(t))) return false;
+    }
+    return true;
+  });
+  const by={
+    az:(a,b)=>(a.varumarke||'').localeCompare(b.varumarke||'','sv')||(a.titel||'').localeCompare(b.titel||'','sv'),
+    prisner:(a,b)=>(b.pris||0)-(a.pris||0),
+    prisupp:(a,b)=>(a.pris||0)-(b.pris||0),
+    antal:(a,b)=>kvar(b)-kvar(a),
+    betyg:(a,b)=>(b.betyg||0)-(a.betyg||0),
+    ny:(a,b)=>RAW.indexOf(a)-RAW.indexOf(b)
+  }[document.getElementById('sort').value];
+  return out.sort(by);
+}
+
+/* ---------------- rendering ---------------- */
+function render(){
+  const gr=document.getElementById('grouprow');
+  gr.innerHTML=`<button data-g="ALLA" class="${F.grupp==='ALLA'?'on':''}">Allt på vinden <span class="n">${RAW.length}</span></button>`+
+    groupCounts().map(([g,n])=>`<button data-g="${esc(g)}" class="${F.grupp===g?'on':''}">${esc(g)} <span class="n">${n}</span></button>`).join('');
+
+  const sb=document.getElementById('subbar'), sr=document.getElementById('subrow');
+  if(F.grupp==='ALLA'){ sb.classList.remove('on'); sr.innerHTML=''; }
+  else{
+    sb.classList.add('on');
+    const subs=subCounts(F.grupp);
+    sr.innerHTML=`<button class="subcat ${F.kat?'':'on'}" data-k="">Allt inom ${esc(F.grupp.toLowerCase())} <span class="n">${subs.reduce((s,x)=>s+x[1],0)}</span></button>`+
+      subs.map(([k,n])=>`<button class="subcat ${F.kat===k?'on':''}" data-k="${esc(k)}">${esc(k)} <span class="n">${n}</span></button>`).join('');
+  }
+
+  document.getElementById('brandrail').innerHTML=brandCounts().map(([b,o])=>
+    `<button class="bchip ${F.brands.has(b)?'on':''}" data-b="${esc(b)}"><span class="dot" style="background:${o.c}"></span>${esc(b)} <span class="n">${o.n}</span></button>`).join('');
+
+  document.querySelectorAll('[data-f]').forEach(el=>el.classList.toggle('on',!!F[el.dataset.f]));
+
+  const list=filtered();
+  document.getElementById('count').textContent=`${list.length} ${list.length===1?'produkt':'produkter'}`;
+  document.getElementById('grid').innerHTML=list.map(card).join('');
+  document.getElementById('grid').style.display=list.length?'':'none';
+  document.getElementById('empty').style.display=list.length?'none':'';
+
+  document.getElementById('s-artiklar').textContent=RAW.length;
+  document.getElementById('s-enheter').textContent=RAW.reduce((s,p)=>s+kvar(p),0);
+  document.getElementById('s-varde').textContent=kr(RAW.reduce((s,p)=>s+kvar(p)*(p.pris||0),0));
+  document.getElementById('s-uttag').textContent=Object.values(taken).reduce((a,b)=>a+b,0);
+
+  document.getElementById('cartb').textContent=Object.values(cart).reduce((a,b)=>a+b,0);
+  const ob=document.getElementById('ordb'); ob.textContent=orders.length; ob.style.display=orders.length?'':'none';
+  document.getElementById('qclr').style.display=F.q?'block':'none';
+  renderCart();
+}
+
+function shot(p,cls){
+  const c=brandColor(p);
+  const init=esc((p.varumarke||p.titel||'?').trim()[0]||'?').toUpperCase();
+  const photo=p.bild_ar_foto?' photo':'';
+  return `<div class="shot${photo} ${p.bild?'':'nopic'} ${cls||''}">
+    <img src="${esc(p.bild)}" alt="${esc(p.titel)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('.shot').classList.add('nopic')">
+    <div class="fallback" style="background:${c}0f"><div class="initial" style="color:${c}">${init}</div><div class="fb">Ingen bild</div></div>
+  </div>`;
+}
+function card(p){
+  const n=kvar(p), c=brandColor(p);
+  const tags=[];
+  if(p.osaker) tags.push('<span class="tag flag">⚑ Osäker</span>');
+  if(n>1) tags.push(`<span class="tag multi">${n} st</span>`);
+  if(p.bild_ar_foto) tags.push('<span class="tag own">Din bild</span>');
+  return `<article class="card" data-open="${esc(p.id)}">
+    <div class="accent" style="background:${c}"></div>
+    <div style="position:relative">
+      <div class="tags">${tags.join('')}</div>
+      <span class="stockpill ${n?'':'out'}">${n?`${n} kvar`:'Slut'}</span>
+      ${shot(p)}
+    </div>
+    <div class="cbody">
+      <div class="cbrand" style="color:${c}">${esc(p.varumarke||'Okänt märke')}</div>
+      <div class="ctitle">${esc(p.titel)}</div>
+      <div class="cmeta">${[p.storlek,p.kategori].filter(Boolean).map(esc).join(' · ')||'&nbsp;'}</div>
+      ${p.betyg?`<div class="stars"><span class="s">${stars(p.betyg)}</span>${p.betyg.toFixed(1)}${p.recensioner_antal?`<span class="soft">(${p.recensioner_antal})</span>`:''}</div>`
+        :(p.recensioner_antal?`<div class="stars"><span class="soft">${p.recensioner_antal} omdömen</span></div>`:'')}
+    </div>
+    <div class="cfoot">
+      <div class="price">${kr(p.pris)}<small>nypris</small></div>
+      <button class="add" data-add="${esc(p.id)}" ${n?'':'disabled'}>${n?'Lägg i korg':'Slut'}</button>
+    </div>
+  </article>`;
+}
+
+/* ---------------- produktvy ---------------- */
+let pdpQty=1, pdpId=null;
+function openPDP(id){
+  const p=byId(id); if(!p) return;
+  pdpQty=1; pdpId=id;
+  document.getElementById('modalbox').innerHTML=pdpHTML(p);
+  document.getElementById('modal').classList.add('on');
+  document.getElementById('veil').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function pdpHTML(p){
+  const n=kvar(p), c=brandColor(p);
+  let bilder=[];
+  if(p.bild) bilder.push({src:p.bild,typ:p.bild_ar_foto?'foto':'produkt'});
+  if(p.foto&&p.foto!==p.bild) bilder.push({src:p.foto,typ:'foto'});
+  if(p.osaker) bilder.sort((a,b)=>(a.typ==='foto'?-1:1)-(b.typ==='foto'?-1:1));
+  const main=bilder[0]||{src:'',typ:'produkt'};
+  return `<div class="pdp">
+    <div class="left">
+      <button class="closeb" data-act="close">×</button>
+      <div class="big">${main.src?`<img id="pdpimg" src="${esc(main.src)}" referrerpolicy="no-referrer" class="${main.typ==='foto'?'cover':''}" alt="">`
+        :`<div style="color:${c};font-size:54px;font-weight:700">${esc((p.varumarke||'?')[0])}</div>`}</div>
+      ${bilder.length>1?`<div class="thumbs">${bilder.map((b,i)=>
+        `<button class="${i===0?'on':''}" data-thumb="${esc(b.src)}" data-typ="${b.typ}"><img src="${esc(b.src)}" referrerpolicy="no-referrer" alt=""><span>${b.typ==='foto'?'Din bild':'Butiken'}</span></button>`).join('')}</div>`:''}
+    </div>
+    <div class="right">
+      <div class="brandline" style="color:${c}">${esc(p.varumarke||'Okänt märke')}</div>
+      <h2>${esc(p.titel)}</h2>
+      ${p.betyg?`<div class="stars"><span class="s">${stars(p.betyg)}</span>${p.betyg.toFixed(1)} av 5<span class="soft">${p.recensioner_antal?` · ${p.recensioner_antal} omdömen`:''}${p.butik?` hos ${esc(p.butik)}`:''}</span></div>`
+        :(p.recensioner_antal?`<div class="stars"><span class="soft">${p.recensioner_antal} omdömen${p.butik?` hos ${esc(p.butik)}`:''}</span></div>`:'')}
+      ${p.osaker?`<div class="warn"><b>Osäker match.</b> ${esc(p.osakerhet||'Jag kunde inte identifiera varan säkert på bilden.')}${p.foto?' <b>Stora bilden är ditt eget foto</b> — klicka på miniatyren bredvid för att jämföra med produkten jag gissat på.':''}</div>`:''}
+      ${p.standin?`<div class="warn soft"><b>Bilden visar en liknande produkt.</b> Varan på vinden är inte säkert identifierad, så produktbilden är en illustration.</div>`:''}
+      <div style="font-size:22px;font-weight:600">${kr(p.pris)} <span style="font-size:12px;font-weight:400;color:var(--ink-3)">nypris i butik</span></div>
+      <p style="margin:0;color:var(--ink-2);font-size:13.5px">${esc(p.beskrivning||'')}</p>
+      <dl class="kv">
+        <dt>På vinden</dt><dd>${n} av ${p.antal||0} kvar${(taken[p.id]||0)?` · ${taken[p.id]} uttagna`:''}</dd>
+        <dt>Plats</dt><dd>${esc(p.plats||'—')}</dd>
+        <dt>Kategori</dt><dd>${esc(p.grupp)} · ${esc(p.kategori)}</dd>
+        ${p.storlek?`<dt>Storlek</dt><dd>${esc(p.storlek)}</dd>`:''}
+        ${p.kalla?`<dt>Källa</dt><dd><a class="linkish" href="${esc(p.kalla)}" target="_blank" rel="noreferrer">${esc(p.butik||'produktsidan')}</a></dd>`:''}
+      </dl>
+      <div class="qtyrow">
+        <div class="qty"><button data-step="-1">−</button><span id="pq">1</span><button data-step="1">+</button></div>
+        <button class="buy" data-buy="${esc(p.id)}" ${n?'':'disabled'}>${n?'Lägg i korg':'Slut på vinden'}</button>
+      </div>
+      <div class="srcnote">${p.pris?`Pris hämtat från ${p.butik?esc(p.butik):'butiken'} — värdet du slipper betala igen.`:'Ingen prisuppgift hittad.'}</div>
+    </div>
+  </div>`;
+}
+
+/* ---------------- korg ---------------- */
+function addToCart(id,qty){
+  const p=byId(id); if(!p) return;
+  const room=kvar(p)-inCart(id);
+  if(room<=0){ toast('Allt som finns ligger redan i korgen'); return; }
+  const add=Math.min(qty,room);
+  cart[id]=inCart(id)+add; save(LS.cart,cart);
+  toast(`${add} × ${p.varumarke||p.titel} lades i korgen`);
+  render();
+}
+function setQty(id,q){
+  const p=byId(id); q=Math.max(0,Math.min(q,kvar(p)));
+  if(q===0) delete cart[id]; else cart[id]=q;
+  save(LS.cart,cart); render();
+}
+function renderCart(){
+  const ids=Object.keys(cart).filter(id=>byId(id));
+  const body=document.getElementById('cartbody'), foot=document.getElementById('cartfoot');
+  if(!ids.length){
+    body.innerHTML=`<div style="padding:70px 10px;text-align:center;color:var(--ink-3)">Korgen är tom.<br><br><button class="mini" data-act="close">Börja plocka</button></div>`;
+    foot.innerHTML=`<button class="checkout" disabled>Slutför uttag</button>`; return;
+  }
+  let sum=0,antal=0;
+  body.innerHTML=ids.map(id=>{
+    const p=byId(id), q=cart[id]; sum+=q*(p.pris||0); antal+=q;
+    return `<div class="line">
+      <div class="th">${p.bild?`<img src="${esc(p.bild)}" referrerpolicy="no-referrer" alt="">`:`<span style="color:${brandColor(p)};font-weight:700">${esc((p.varumarke||'?')[0])}</span>`}</div>
+      <div class="info">
+        <div class="b" style="color:${brandColor(p)}">${esc(p.varumarke||'')}</div>
+        <div class="t">${esc(p.titel)}</div>
+        <div class="t" style="color:var(--brass);font-size:11.5px">📍 ${esc(p.plats||'')}</div>
+        <div class="p">${kr(q*(p.pris||0))}</div>
+        <div class="qty" style="margin-top:8px;align-self:flex-start"><button data-cq="${esc(id)}:${q-1}">−</button><span>${q}</span><button data-cq="${esc(id)}:${q+1}">+</button></div>
+      </div>
+      <button class="rm" data-cq="${esc(id)}:0">Ta bort</button>
+    </div>`;
+  }).join('');
+  foot.innerHTML=`
+    <div class="sumrow"><span>${antal} ${antal===1?'enhet':'enheter'}</span><span>${kr(sum)}</span></div>
+    <div class="sumrow"><span>Frakt från vinden</span><span>0 kr</span></div>
+    <div class="sumrow total"><span>Du slipper betala</span><span>${kr(sum)}</span></div>
+    <button class="checkout" data-act="checkout">Slutför uttag</button>
+    <div class="savedline">Sparat: ${kr(sum)} — du hade köpt det här nytt annars</div>`;
+}
+function checkout(){
+  const ids=Object.keys(cart); if(!ids.length) return;
+  const rader=ids.map(id=>{const p=byId(id);return{id,antal:cart[id],titel:p.titel,varumarke:p.varumarke,plats:p.plats||'',pris:p.pris||0}});
+  const sum=rader.reduce((s,r)=>s+r.antal*r.pris,0);
+  ids.forEach(id=>taken[id]=(taken[id]||0)+cart[id]);
+  orders.unshift({id:'VH-'+String(Date.now()).slice(-6),ts:new Date().toISOString(),rader,sum,klar:[]});
+  cart={}; save(LS.stock,taken); save(LS.cart,cart); save(LS.orders,orders);
+  closeAll();
+  document.getElementById('conftext').innerHTML=`${rader.reduce((s,r)=>s+r.antal,0)} enheter är avräknade från vinden. Du sparade <b>${kr(sum)}</b> på att inte köpa det igen.`;
+  go('confirm'); render();
+}
+
+/* ---------------- uttag ---------------- */
+function renderOrders(){
+  const el=document.getElementById('orderlist');
+  if(!orders.length){ el.innerHTML=`<div class="empty"><h3>Inga uttag ännu</h3><p>När du slutför ett uttag hamnar plocklistan här — med plats på vinden för varje sak.</p></div>`; return; }
+  el.innerHTML=orders.map(o=>`
+    <div class="order">
+      <div class="ohead">
+        <span class="oid">${esc(o.id)}</span>
+        <span class="odate">${new Date(o.ts).toLocaleString('sv-SE',{dateStyle:'long',timeStyle:'short'})}</span>
+        <span class="odate">· ${o.rader.reduce((s,r)=>s+r.antal,0)} enheter · ${kr(o.sum)} sparat</span>
+        <span class="oacts">
+          <button class="mini" data-copy="${esc(o.id)}">Kopiera lista</button>
+          <button class="mini" data-undo="${esc(o.id)}">Ångra uttag</button>
+        </span>
+      </div>
+      <div class="pick">${o.rader.map((r,i)=>`
+        <div class="pickrow ${o.klar.includes(i)?'done':''}" data-tick="${esc(o.id)}:${i}">
+          <div class="box">${o.klar.includes(i)?'✓':''}</div>
+          <div class="pt"><b>${esc(r.varumarke||'')}</b> ${esc(r.titel)}</div>
+          ${r.plats?`<div class="loc">📍 ${esc(r.plats)}</div>`:''}
+          <div class="n">${r.antal} st</div>
+        </div>`).join('')}</div>
+    </div>`).join('');
+}
+
+/* ---------------- vyer & händelser ---------------- */
+function go(v){
+  ['shop','orders','confirm'].forEach(x=>document.getElementById('v-'+x).classList.toggle('on',x===v));
+  if(v==='orders') renderOrders();
+  window.scrollTo({top:0,behavior:'instant'});
+}
+function openCart(){document.getElementById('drawer').classList.add('on');document.getElementById('veil').classList.add('on');document.body.style.overflow='hidden'}
+function closeAll(){
+  document.getElementById('drawer').classList.remove('on');
+  document.getElementById('modal').classList.remove('on');
+  document.getElementById('veil').classList.remove('on');
+  document.body.style.overflow='';
+}
+let tt; function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2200)}
+
+document.addEventListener('click',e=>{
+  const t=e.target;
+  const hit=sel=>t.closest(sel);
+  let el;
+  if(el=hit('[data-g]')){ F.grupp=el.dataset.g; F.kat=null; F.brands.clear(); render(); window.scrollTo({top:0,behavior:'smooth'}); return; }
+  if(el=hit('[data-k]')){ F.kat=el.dataset.k||null; render(); return; }
+  if(el=hit('[data-b]')){ const b=el.dataset.b; F.brands.has(b)?F.brands.delete(b):F.brands.add(b); render(); return; }
+  if(el=hit('[data-f]')){ F[el.dataset.f]=!F[el.dataset.f]; render(); return; }
+  if(el=hit('[data-add]')){ e.stopPropagation(); addToCart(el.dataset.add,1); openCart(); return; }
+  if(el=hit('[data-buy]')){ addToCart(el.dataset.buy,pdpQty); closeAll(); openCart(); return; }
+  if(el=hit('[data-step]')){ const p=byId(pdpId); pdpQty=Math.min(Math.max(1,pdpQty+ +el.dataset.step),Math.max(1,kvar(p)-inCart(pdpId))); document.getElementById('pq').textContent=pdpQty; return; }
+  if(el=hit('[data-thumb]')){ const img=document.getElementById('pdpimg'); img.src=el.dataset.thumb; img.classList.toggle('cover',el.dataset.typ==='foto');
+      document.querySelectorAll('.thumbs button').forEach(b=>b.classList.toggle('on',b===el)); return; }
+  if(el=hit('[data-cq]')){ const [id,q]=el.dataset.cq.split(':'); setQty(id,+q); return; }
+  if(el=hit('[data-tick]')){ const [oid,i]=el.dataset.tick.split(':'); const o=orders.find(x=>x.id===oid); if(o){const k=o.klar.indexOf(+i); k>=0?o.klar.splice(k,1):o.klar.push(+i); save(LS.orders,orders); renderOrders();} return; }
+  if(el=hit('[data-copy]')){ const o=orders.find(x=>x.id===el.dataset.copy);
+      const txt=`PLOCKLISTA ${o.id} — ${new Date(o.ts).toLocaleDateString('sv-SE')}\n`+o.rader.map(r=>`☐ ${r.antal} × ${r.varumarke?r.varumarke+' ':''}${r.titel}${r.plats?`  [${r.plats}]`:''}`).join('\n');
+      navigator.clipboard?.writeText(txt).then(()=>toast('Plocklistan kopierad'),()=>toast('Kunde inte kopiera')); return; }
+  if(el=hit('[data-undo]')){ const i=orders.findIndex(x=>x.id===el.dataset.undo);
+      if(i>=0&&confirm('Lägga tillbaka allt i det här uttaget på vinden?')){
+        orders[i].rader.forEach(r=>taken[r.id]=Math.max(0,(taken[r.id]||0)-r.antal));
+        orders.splice(i,1); save(LS.stock,taken); save(LS.orders,orders); toast('Uttaget ångrat'); renderOrders(); render(); } return; }
+  if(el=hit('[data-go]')){ go(el.dataset.go); return; }
+  if(el=hit('[data-act]')){
+    const a=el.dataset.act;
+    if(a==='cart') openCart();
+    else if(a==='close') closeAll();
+    else if(a==='checkout') checkout();
+    else if(a==='clearq'){ F.q=''; document.getElementById('q').value=''; render(); }
+    else if(a==='reset'){ F={grupp:'ALLA',kat:null,brands:new Set(),multi:false,osaker:false,slut:false,q:''}; document.getElementById('q').value=''; render(); }
+    else if(a==='export'){
+      const out=RAW.map(p=>({...p,uttaget:taken[p.id]||0,kvar:kvar(p)}));
+      const b=new Blob([JSON.stringify({exporterad:new Date().toISOString(),produkter:out,ordrar:orders},null,2)],{type:'application/json'});
+      const a2=document.createElement('a'); a2.href=URL.createObjectURL(b); a2.download='vindhora-lager.json'; a2.click();
+    }
+    else if(a==='resetstock'){ if(confirm('Nollställa alla uttag och lägga tillbaka allt på vinden?')){ taken={};orders=[];cart={};save(LS.stock,taken);save(LS.orders,orders);save(LS.cart,cart);toast('Lagret är återställt');render();go('shop'); } }
+    return;
+  }
+  if(el=hit('[data-open]')) openPDP(el.dataset.open);
+});
+document.getElementById('q').addEventListener('input',e=>{F.q=e.target.value;render()});
+document.getElementById('sort').addEventListener('change',render);
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') closeAll();
+  if(e.key==='/'&&document.activeElement.id!=='q'){e.preventDefault();document.getElementById('q').focus()}
+});
+render();
+</script>
+</body>
+</html>
